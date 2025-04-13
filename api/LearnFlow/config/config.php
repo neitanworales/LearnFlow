@@ -3,6 +3,6 @@
 $host='localhost';
 $user='root';
 $password='';
-$db='jucum_pachuca';
+$db='LearnFlow';
 
 ?>
