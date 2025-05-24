@@ -24,7 +24,11 @@ require_once './controllers/RespuestaEncuestaController.php';
 require_once './controllers/ProgresoController.php';
 
 // Detectar URI y método HTTP
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$scriptName = $_SERVER['SCRIPT_NAME']; // e.g. /LearnFlow/index.php
+$scriptDir = str_replace('/index.php', '', $scriptName);
+$uri = str_replace($scriptDir, '', $_SERVER['REQUEST_URI']);
+$uri = parse_url($uri, PHP_URL_PATH);
+$uri = '/' . ltrim($uri, '/');
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Función para definir rutas
@@ -43,12 +47,12 @@ function resourceRoutes($resource, $controllerName) {
     global $method;
     $controller = new $controllerName();
 
-    route("/services/$resource", function() use ($method, $controller) {
+    route("/api/$resource", function() use ($method, $controller) {
         if ($method === 'GET') $controller->index();
         if ($method === 'POST') $controller->store();
     });
 
-    route("/services/$resource/{id}", function($id) use ($method, $controller) {
+    route("/api/$resource/{id}", function($id) use ($method, $controller) {
         if ($method === 'GET') $controller->show($id);
         if ($method === 'PUT') $controller->update($id);
         if ($method === 'DELETE') $controller->destroy($id);

@@ -1,6 +1,7 @@
 <?php
 require_once './dao/PersonaDao.php';
 require_once './models/Persona.php';
+require_once './helpers/response.php';
 
 class PersonaController {
     private $dao;
@@ -12,13 +13,19 @@ class PersonaController {
     public function index() {
         $stmt = $this->dao->getAll();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($data);
+        echo jsonResponse($data);
     }
 
     public function show($id) {
         $stmt = $this->dao->getById($id);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo json_encode($data);
+        $statusCode = 200;
+        $statusText = 'Ok';
+        if(empty($data)){
+            $statusCode = 404;
+            $statusText = 'Not found';
+        }
+        echo jsonResponse($data,$statusCode, $statusText);
     }
 
     public function store() {
@@ -30,7 +37,7 @@ class PersonaController {
             }
         }
         $result = $this->dao->insert($obj);
-        echo json_encode(['success' => $result]);
+        echo jsonResponse(['success' => $result], 201, 'Created');
     }
 
     public function update($id) {
@@ -43,12 +50,12 @@ class PersonaController {
             }
         }
         $result = $this->dao->update($obj);
-        echo json_encode(['success' => $result]);
+        echo jsonResponse(['success' => $result]);
     }
 
     public function destroy($id) {
         $result = $this->dao->delete($id);
-        echo json_encode(['success' => $result]);
+        echo jsonResponse(['success' => $result]);
     }
 }
 ?>
