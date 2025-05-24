@@ -1,3 +1,7 @@
 <?php
-class Rol { public int $id; public string $nombre; }
+class Rol
+{
+    public int $id;
+    public string $nombre;
+}
 ?>
