@@ -30,7 +30,7 @@ class UsuarioDao {
         foreach ($props as $key => $value) {
             $params[":$key"] = $value;
         }
-        return $this->bd->execute($query, $params);
+        return $this->bd->executeWithId($query, $params);
     }
 
     public function update($obj) {

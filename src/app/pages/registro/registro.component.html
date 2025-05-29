@@ -1,1 +1,108 @@
-<p>registro works!</p>
+<section class="position-relative h-100 pt-5 pb-4" style="margin-top: 2em;">
+
+    <!-- Sign up form -->
+    <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
+        <form (ngSubmit)="registrar()" [formGroup]="registroUsuario">
+            <div class="w-100 align-self-end pt-1 pt-md-4 pb-4" style="max-width: 526px;">
+                <h1 class="text-center text-xl-start">Crear una cuenta</h1>
+                <p class="text-center text-xl-start pb-3 mb-3">¿Ya tienes una cuenta? <a routerLink="/login">Entra
+                        aquí</a>
+                </p>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="position-relative mb-4">
+                            <label for="name" class="form-label fs-base">Nombre</label>
+                            <input type="text" id="name" class="form-control form-control-lg"
+                                [ngClass]="{'is-invalid': form['nombre'].errors }" formControlName="nombre"
+                                [(ngModel)]="usuario.nombre">
+                            <div class="invalid-feedback position-absolute start-0 top-100">Please enter your name!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="position-relative mb-4">
+                            <label for="name" class="form-label fs-base">Apellido</label>
+                            <input type="text" id="name" class="form-control form-control-lg"
+                                [ngClass]="{'is-invalid': form['apellido'].errors }" formControlName="apellido"
+                                [(ngModel)]="usuario.apellido">
+                            <div class="invalid-feedback position-absolute start-0 top-100">Please enter your last name!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <div class="position-relative mb-4">
+                            <label for="email" class="form-label fs-base">Email</label>
+                            <input type="email" id="email" class="form-control form-control-lg"
+                                [ngClass]="{'is-invalid': form['email'].errors }" formControlName="email"
+                                [(ngModel)]="usuario.email">
+                            <div class="invalid-feedback position-absolute start-0 top-100">Please enter a valid
+                                email
+                                address!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <label for="password" class="form-label fs-base">Password</label>
+                        <div class="password-toggle">
+                            <input type="password" id="password" class="form-control form-control-lg" required=""
+                                formControlName="password" [(ngModel)]="usuario.contrasena"
+                                [ngClass]="{'is-invalid': form['password'].errors }">
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox">
+                                <span class="password-toggle-indicator"></span>
+                            </label>
+                            <div class="invalid-feedback position-absolute start-0 top-100">Please enter a password!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <label for="password-confirm" class="form-label fs-base">Confirma password</label>
+                        <div class="password-toggle">
+                            <input type="password" id="password-confirm" class="form-control form-control-lg"
+                                formControlName="validar_password"
+                                [ngClass]="{'is-invalid': form['validar_password'].errors }">
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox">
+                                <span class="password-toggle-indicator"></span>
+                            </label>
+                            <div class="invalid-feedback position-absolute start-0 top-100">Please enter a password!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" id="terms" class="form-check-input" formControlName="agreedToTerms"
+                            [ngClass]="{'is-invalid': form['validar_password'].errors }">
+                        <label for="terms" class="form-check-label fs-base">Aceptó los <a
+                                routerLink="/terminos-condiciones">Terminos &amp;
+                                Condiciones</a></label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary shadow-primary btn-lg w-100"
+                    [disabled]="registroUsuario.invalid">Sign up</button>
+
+                <hr class="my-4">
+                <h6 class="text-center mb-4">Or sign up with your social network</h6>
+                <div class="row row-cols-1 row-cols-sm-2">
+                    <div class="col mb-3">
+                        <a href="#" class="btn btn-icon btn-secondary btn-google btn-lg w-100">
+                            <i class="bx bxl-google fs-xl me-2"></i>
+                            Google
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="#" class="btn btn-icon btn-secondary btn-facebook btn-lg w-100">
+                            <i class="bx bxl-facebook fs-xl me-2"></i>
+                            Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Background 
+    <div class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block"
+        style="background-image: url(assets/img/account/signin-bg.jpg);"></div>-->
+</section>

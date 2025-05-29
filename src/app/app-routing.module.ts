@@ -9,11 +9,15 @@ import { UsuariosComponent } from './pages/learn-flow/private/usuarios/usuarios.
 import { MtoCursosComponent } from './pages/learn-flow/private/mto-cursos/mto-cursos.component';
 import { CursosComponent } from './pages/learn-flow/cursos/cursos.component';
 import { CursoComponent } from './pages/learn-flow/curso/curso.component';
+import { RegistroComponent } from './pages/registro/registro.component';
+import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
   { path: 'learn-flow/main', component: MainComponent },
   { path: 'learn-flow/dashboard', component: DashboardComponent },
   { path: 'learn-flow/cursos', component: CursosComponent },

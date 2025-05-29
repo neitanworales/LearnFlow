@@ -16,7 +16,8 @@ class PersonaDao {
 
     public function getById($id) {
         $query = "SELECT * FROM {$this->table} WHERE id = :id";
-        return $this->bd->execute($query, [':id' => $id]);
+        $stmt = $this->bd->execute($query, [':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function insert($obj) {
@@ -30,7 +31,7 @@ class PersonaDao {
         foreach ($props as $key => $value) {
             $params[":$key"] = $value;
         }
-        return $this->bd->execute($query, $params);
+        return $this->bd->executeWithId($query, $params);
     }
 
     public function update($obj) {
