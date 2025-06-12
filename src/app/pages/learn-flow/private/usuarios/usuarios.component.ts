@@ -3,9 +3,10 @@ import { UsuarioDao } from 'src/app/core/api/dao/UsuarioDao';
 import { Usuario } from 'src/app/core/model/Usuario';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+    selector: 'app-usuarios',
+    templateUrl: './usuarios.component.html',
+    styleUrls: ['./usuarios.component.scss'],
+    standalone: false
 })
 export class UsuariosComponent implements OnInit {
 

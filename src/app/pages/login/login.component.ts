@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { TumbaService } from 'src/app/core/services/tumbaService';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent {
 
