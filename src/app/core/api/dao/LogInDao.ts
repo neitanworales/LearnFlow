@@ -17,6 +17,7 @@ export class LogInDao {
     }
 
     public getSession(): Observable<SessionResponse> {
-        return this.http.get<SessionResponse>(environment.api + '/api/session', { headers: this.utils.getHeaders() });
+        let session = this.utils.getSessionFromStorage();
+        return this.http.post<SessionResponse>(environment.api + '/api/session', { "token": session?.token }, { headers: this.utils.getHeaders() });
     }
 }   

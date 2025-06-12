@@ -12,7 +12,9 @@ export const authGuard: CanMatchFn = (
   return inject(AuthService).currentUser$.pipe(
     map((session) => {
       if (session) {
-        return true;
+        if(session.status === 'valid' || session.status === 'ok') {
+          return true;
+        }
       }
       return router.createUrlTree(['login']);
     }),

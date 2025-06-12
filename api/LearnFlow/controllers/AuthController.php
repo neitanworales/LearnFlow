@@ -1,7 +1,8 @@
 <?php
 require_once './models/Usuario.php';
 require_once './dao/UsuarioDao.php';
-require_once './dao/TokenDao.php';
+require_once './dao/UserTokenDAO.php';
+require_once './dao/UserRoleDao.php';
 require_once './helpers/response.php';
 
 class AuthController
@@ -9,11 +10,13 @@ class AuthController
     private $conn;
     private $usuarioDao;
     private $tokenDao;
+    private $userRoleDao;
 
     public function __construct()
     {
         $this->usuarioDao = new UsuarioDao();
         $this->tokenDao = new UserTokenDAO();
+        $this->userRoleDao = new UserRoleDAO();
     }
 
     // POST /api/login
@@ -33,11 +36,18 @@ class AuthController
             $token = bin2hex(random_bytes(32)); // Genera token único
             $expires = date('Y-m-d H:i:s', strtotime('+1 day'));
             $this->tokenDao->create($usuario['id'], $token, $expires);
+            $usuario['roles'] = $this->userRoleDao->getRolesByUser($usuario['id']);
+            $roles = array();
+            foreach ($usuario['roles'] as &$role) {
+                $role = $role['nombre'];
+                array_push($roles, $role);
+            }
             echo jsonResponse([
                 'status' => 'ok',
                 'token' => $token,
                 'user_id' => $usuario['id'],
-                'expires_at' => $expires
+                'expires_at' => $expires, 
+                'roles' => $roles
             ], 200, 'Ok');
         } else {
             echo jsonResponse(['error' => 'Credenciales inválidas'], 401, 'Unauthorized');
@@ -55,6 +65,22 @@ class AuthController
         } else {
             echo jsonResponse(['error' => 'Token inválido o ya cerrado'], 400, 'Bad Request');
         }
+    }
+
+    public function generateResponse($id, $token, $expires){
+        $usuario['roles'] = $this->userRoleDao->getRolesByUser($id);
+        $roles = array();
+        foreach ($usuario['roles'] as &$role) {
+            $role = $role['nombre'];
+            array_push($roles, $role);
+        }
+        echo jsonResponse([
+            'status' => 'ok',
+            'token' => $token,
+            'user_id' => $usuario['id'],
+            'expires_at' => $expires, 
+            'roles' => $roles
+        ], 200, 'Ok');
     }
 }
 ?>

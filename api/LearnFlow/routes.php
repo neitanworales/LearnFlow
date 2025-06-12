@@ -2,6 +2,7 @@
 // Incluimos todos los controladores
 require_once './helpers/response.php';
 require_once './controllers/AuthController.php';
+require_once './controllers/SessionController.php';
 require_once './controllers/UsuarioController.php';
 require_once './controllers/PersonaController.php';
 require_once './controllers/RolController.php';
@@ -53,11 +54,12 @@ function resourceRoutes($resource, $controllerName)
 
     route("/api/$resource", function () use ($method, $controller, $resource) {
 
-        if ($resource === 'login' || $resource === 'logout') {
+        if ($resource === 'login' || $resource === 'logout' || $resource === 'session') {
             if ($method === 'POST') {
                 $data = json_decode(file_get_contents("php://input"), true);
-                $controller = new AuthController();
+                
                 if ($resource === 'login') {
+                    $controller = new AuthController();
                     if (!isset($data['email']) || !isset($data['password'])) {
                         http_response_code(400);
                         echo jsonResponse(['error' => 'Email y contraseña son requeridos'], 400, 'Bad Request');
@@ -81,7 +83,7 @@ function resourceRoutes($resource, $controllerName)
 
                     $controller->login($data['email'], $data['password']);
                 } else if ($resource === 'logout') {
-
+                    $controller = new AuthController();
                     if (!isset($data['token'])) {
                         $data['token'] = null; // Aseguramos que el token sea null si no se proporciona
                     }
@@ -92,7 +94,40 @@ function resourceRoutes($resource, $controllerName)
                     }
 
                     $controller->logout($data['token']);
+                }   else if ($resource === 'session') {
+                    $controller = new SessionController();
+                    if (!isset($data['token'])) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'Token es requerido'], 400, 'Bad Request');
+                        exit;
+                    }
+                    if (empty($data['token'])) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'Token no puede estar vacío'], 400, 'Bad Request');
+                        exit;
+                    }
+                    $controller->validateSession($data['token']);
                 }
+            } else {
+                http_response_code(405);
+                echo jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+                exit;
+            }
+        } else if ($resource === 'session') {
+            if ($method === 'POST') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                if (!isset($data['token'])) {
+                    http_response_code(400);
+                    echo jsonResponse(['error' => 'Token es requerido'], 400, 'Bad Request');
+                    exit;
+                }
+                $controller = new SessionController();
+                if (empty($data['token'])) {
+                    http_response_code(400);
+                    echo jsonResponse(['error' => 'Token no puede estar vacío'], 400, 'Bad Request');
+                    exit;
+                }
+                $controller->validateSession($data['token']);
             } else {
                 http_response_code(405);
                 echo jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
@@ -143,6 +178,7 @@ resourceRoutes('respuestas-encuesta', 'RespuestaEncuestaController');
 resourceRoutes('progreso', 'ProgresoController');
 resourceRoutes('login', 'AuthController');
 resourceRoutes('logout', 'AuthController');
+resourceRoutes('session', 'SessionController');
 
 // Ruta por defecto
 echo jsonResponse(['error' => 'Ruta no encontrada'], 404, 'Not Found');
