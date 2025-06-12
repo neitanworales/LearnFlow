@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/core/model/Usuario';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuarioDao } from 'src/app/core/dao/UsuarioDao';
+import { UsuarioDao } from 'src/app/core/api/dao/UsuarioDao';
 import { Router } from '@angular/router';
 
 @Component({

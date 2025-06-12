@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioDao } from 'src/app/core/dao/UsuarioDao';
+import { UsuarioDao } from 'src/app/core/api/dao/UsuarioDao';
 import { Usuario } from 'src/app/core/model/Usuario';
 
 @Component({

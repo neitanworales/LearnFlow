@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { UsuarioResponse } from "../model/UsuarioResponse";
+import { UsuarioResponse } from "../../model/UsuarioResponse";
 import { environment } from "src/environments/environment";
-import { DefaultResponse } from "../model/DefaultResponse";
-import { Usuario } from "../model/Usuario";
+import { DefaultResponse } from "../../model/DefaultResponse";
+import { Usuario } from "../../model/Usuario";
 
 @Injectable()
 export class UsuarioDao {

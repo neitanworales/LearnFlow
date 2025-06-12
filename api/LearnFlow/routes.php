@@ -1,5 +1,7 @@
 <?php
 // Incluimos todos los controladores
+require_once './helpers/response.php';
+require_once './controllers/AuthController.php';
 require_once './controllers/UsuarioController.php';
 require_once './controllers/PersonaController.php';
 require_once './controllers/RolController.php';
@@ -32,7 +34,8 @@ $uri = '/' . ltrim($uri, '/');
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Función para definir rutas
-function route($pattern, $callback) {
+function route($pattern, $callback)
+{
     global $uri;
     $regex = "@^" . preg_replace('/\\\{[a-zA-Z_]+\\\}/', '([0-9]+)', preg_quote($pattern)) . "$@";
     if (preg_match($regex, $uri, $params)) {
@@ -43,19 +46,75 @@ function route($pattern, $callback) {
 }
 
 // Función para automatizar rutas CRUD
-function resourceRoutes($resource, $controllerName) {
+function resourceRoutes($resource, $controllerName)
+{
     global $method;
     $controller = new $controllerName();
 
-    route("/api/$resource", function() use ($method, $controller) {
-        if ($method === 'GET') $controller->index();
-        if ($method === 'POST') $controller->store();
+    route("/api/$resource", function () use ($method, $controller, $resource) {
+
+        if ($resource === 'login' || $resource === 'logout') {
+            if ($method === 'POST') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controller = new AuthController();
+                if ($resource === 'login') {
+                    if (!isset($data['email']) || !isset($data['password'])) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'Email y contraseña son requeridos'], 400, 'Bad Request');
+                        exit;
+                    }
+                    if (empty($data['email']) || empty($data['password'])) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'Email y contraseña no pueden estar vacíos'], 400, 'Bad Request');
+                        exit;
+                    }
+                    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'Email inválido'], 400, 'Bad Request');
+                        exit;
+                    }
+                    if (strlen($data['password']) < 6) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'La contraseña debe tener al menos 6 caracteres'], 400, 'Bad Request');
+                        exit;
+                    }
+
+                    $controller->login($data['email'], $data['password']);
+                } else if ($resource === 'logout') {
+
+                    if (!isset($data['token'])) {
+                        $data['token'] = null; // Aseguramos que el token sea null si no se proporciona
+                    }
+                    if (empty($data['token'])) {
+                        http_response_code(400);
+                        echo jsonResponse(['error' => 'Token es requerido'], 400, 'Bad Request');
+                        exit;
+                    }
+
+                    $controller->logout($data['token']);
+                }
+            } else {
+                http_response_code(405);
+                echo jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+                exit;
+            }
+        } else {
+
+            if ($method === 'GET')
+                $controller->index();
+            if ($method === 'POST')
+                $controller->store();
+        }
     });
 
-    route("/api/$resource/{id}", function($id) use ($method, $controller) {
-        if ($method === 'GET') $controller->show($id);
-        if ($method === 'PUT') $controller->update($id);
-        if ($method === 'DELETE') $controller->destroy($id);
+
+    route("/api/$resource/{id}", function ($id) use ($method, $controller) {
+        if ($method === 'GET')
+            $controller->show($id);
+        if ($method === 'PUT')
+            $controller->update($id);
+        if ($method === 'DELETE')
+            $controller->destroy($id);
     });
 }
 
@@ -82,7 +141,8 @@ resourceRoutes('notificaciones', 'NotificacionController');
 resourceRoutes('encuestas', 'EncuestaController');
 resourceRoutes('respuestas-encuesta', 'RespuestaEncuestaController');
 resourceRoutes('progreso', 'ProgresoController');
+resourceRoutes('login', 'AuthController');
+resourceRoutes('logout', 'AuthController');
 
 // Ruta por defecto
-http_response_code(404);
-echo json_encode(['error' => 'Ruta no encontrada']);
+echo jsonResponse(['error' => 'Ruta no encontrada'], 404, 'Not Found');

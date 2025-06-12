@@ -19,9 +19,15 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { MtoCursosComponent } from './pages/learn-flow/private/mto-cursos/mto-cursos.component';
 import { CursosComponent } from './pages/learn-flow/cursos/cursos.component';
 import { CursoComponent } from './pages/learn-flow/curso/curso.component';
-import { UsuarioDao } from './core/dao/UsuarioDao';
+import { UsuarioDao } from './core/api/dao/UsuarioDao';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
+import { LogInDao } from './core/api/dao/LogInDao';
+import { AuthInterceptor } from './core/services/ auth.interceptor';
+import { AuthService } from './core/services/auth.service';
+import { TumbaService } from './core/services/tumbaService';
+import { Utils } from './core/api/Utils';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -49,10 +55,19 @@ import { TerminosCondicionesComponent } from './pages/terminos-condiciones/termi
     ReactiveFormsModule,
   ],
   providers: [
+    {
+      provide: 'router', useFactory: (rotuer: Router) => {
+        return new Router();
+      }
+    },
     //{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
-    UsuarioDao
+    Utils,
+    UsuarioDao,
+    LogInDao,
+    AuthService,
+    TumbaService
   ],
   bootstrap: [AppComponent]
 })

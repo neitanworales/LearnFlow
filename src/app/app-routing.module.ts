@@ -11,6 +11,8 @@ import { CursosComponent } from './pages/learn-flow/cursos/cursos.component';
 import { CursoComponent } from './pages/learn-flow/curso/curso.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
+import { hasRoleGuard } from './core/guards/has-role.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,12 +21,12 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
   { path: 'learn-flow/main', component: MainComponent },
-  { path: 'learn-flow/dashboard', component: DashboardComponent },
-  { path: 'learn-flow/cursos', component: CursosComponent },
-  { path: 'learn-flow/cursos/:id', component: CursoComponent },
-  { path: 'learn-flow/admin/usuarios', component: UsuariosComponent },
-  { path: 'learn-flow/admin/alumnos', component: AlumnosComponent },
-  { path: 'learn-flow/admin/cursos', component: MtoCursosComponent },
+  { path: 'learn-flow/dashboard', component: DashboardComponent, canMatch: [authGuard] },
+  { path: 'learn-flow/cursos', component: CursosComponent, canMatch: [authGuard] },
+  { path: 'learn-flow/cursos/:id', component: CursoComponent, canMatch: [authGuard] },
+  { path: 'learn-flow/admin/usuarios', component: UsuariosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
+  { path: 'learn-flow/admin/alumnos', component: AlumnosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
+  { path: 'learn-flow/admin/cursos', component: MtoCursosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
 ];
 
 @NgModule({
