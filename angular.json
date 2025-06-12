@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "LearnFlow:build:production"
+              "buildTarget": "LearnFlow:build:production"
             },
             "development": {
-              "browserTarget": "LearnFlow:build:development"
+              "buildTarget": "LearnFlow:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LearnFlow:build"
+            "buildTarget": "LearnFlow:build"
           }
         },
         "test": {
