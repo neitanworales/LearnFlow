@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-06-2025 a las 20:00:06
+-- Tiempo de generación: 20-06-2025 a las 21:11:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -74,10 +74,37 @@ CREATE TABLE `certificados` (
 CREATE TABLE `clase` (
   `id` int(11) NOT NULL,
   `curso_id` int(11) NOT NULL,
-  `título` varchar(30) NOT NULL,
+  `titulo` varchar(30) NOT NULL,
   `descripcion` varchar(300) NOT NULL,
   `orden` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `clase`
+--
+
+INSERT INTO `clase` (`id`, `curso_id`, `titulo`, `descripcion`, `orden`) VALUES
+(2, 2, 'Impedit repudiandae facilis to', 'Fugit aliquam laborum at ab.', 1),
+(3, 2, 'Quam deserunt eum.', 'Voluptate eveniet quia nisi.', 2),
+(4, 2, 'Facere numquam voluptate ab re', 'Provident modi aliquid sequi ea dolores.', 3),
+(5, 2, 'Repellat corrupti reprehenderi', 'Quibusdam modi repellendus. Dolore facilis possimus rerum sunt.', 4),
+(6, 3, 'Libero totam impedit.', 'Exercitationem natus facilis dolores dignissimos vel. Nisi repellat magnam ut sunt eius tempora.', 1),
+(7, 3, 'Occaecati quam.', 'Explicabo necessitatibus id tempore ullam. Magni aliquam eaque dolorum adipisci.', 2),
+(8, 3, 'Non reiciendis.', 'Odit provident fugiat suscipit totam sit. Accusantium recusandae magni aperiam deserunt.', 3),
+(9, 3, 'Hic commodi perspiciatis hic.', 'Pariatur distinctio aliquam libero illum nam nihil. Consequatur alias tenetur sint at ex numquam.', 4),
+(10, 3, 'Dolor animi quas.', 'Fuga similique architecto sit suscipit.', 5),
+(11, 3, 'Repudiandae asperiores recusan', 'Blanditiis beatae incidunt eaque sed repellendus quisquam. Quo mollitia quod soluta ipsa consequatur incidunt.', 6),
+(12, 4, 'Debitis ad.', 'Blanditiis eligendi corporis laudantium porro ipsam pariatur officia. Adipisci maxime aperiam dolore quae voluptatum.', 1),
+(13, 4, 'Debitis nobis itaque laboriosa', 'Dignissimos et unde illum itaque. Illum ex dolore.', 2),
+(14, 4, 'Explicabo dolorum iusto eius q', 'Doloribus sapiente voluptas odio culpa.', 3),
+(15, 5, 'Officia fugit est necessitatib', 'Suscipit maxime culpa quasi dolore.', 1),
+(16, 5, 'Quia delectus enim officia.', 'Hic omnis eligendi in error tenetur.', 2),
+(17, 5, 'Hic rerum libero.', 'Libero sit deserunt numquam voluptas accusantium voluptatum.', 3),
+(18, 5, 'Aspernatur ducimus ea perferen', 'Aliquid hic similique consectetur.', 4),
+(19, 5, 'Qui voluptas omnis nobis moles', 'Quisquam qui temporibus cumque aut libero.', 5),
+(20, 6, 'Blanditiis cum voluptatem dign', 'Voluptatum accusantium tempora laboriosam aperiam mollitia saepe. Sequi atque temporibus.', 1),
+(21, 6, 'Placeat perferendis.', 'Odio consequuntur quia similique eos voluptatem eum. Consequatur rem quam possimus dolorem.', 2),
+(22, 6, 'Doloribus libero impedit ducim', 'Blanditiis officia laboriosam tempora dolorem distinctio.', 3);
 
 -- --------------------------------------------------------
 
@@ -385,10 +412,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `nombre`) VALUES
-(2, 'usuario'),
-(3, 'maestro'),
-(4, 'alumno'),
-(5, 'libre'),
+(1, 'usuario'),
+(2, 'maestro'),
+(3, 'alumno'),
+(4, 'libre'),
+(111, 'super'),
 (777, 'admin');
 
 -- --------------------------------------------------------
@@ -407,8 +435,9 @@ CREATE TABLE `user_role` (
 --
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
-(11, 2),
-(12, 2);
+(1, 2),
+(11, 111),
+(12, 777);
 
 -- --------------------------------------------------------
 
@@ -430,12 +459,7 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `user_id`, `token`, `created_at`, `expires_at`, `is_active`) VALUES
-(1, 11, '4ce9b8d22d1d8e6970b20e53ed8b4ebd81c848f5db3cf03d371da2e0e49921f7', '2025-06-11 04:46:24', '2025-06-12 12:46:24', 1),
-(2, 11, 'f488d4fb671cb5272889abcbcd9574457a172cd9b3d7bb069649717ca9c6d1b2', '2025-06-11 04:48:10', '2025-06-12 12:48:10', 0),
-(3, 11, '07777f4fc440773d84ecd1db82ee5e9fa9856281e2505aec1288dd1da4938dc9', '2025-06-11 20:57:10', '2025-06-13 04:57:10', 1),
-(4, 11, 'cadaac1c73fc0792289c893a8419d64b433ea684529305204e3762ea35ed2103', '2025-06-11 21:02:59', '2025-06-13 05:02:59', 0),
-(5, 11, '9072632ba2a1cb45e73d3b209d110245acd2dbde5b10c4dd2ce3b97dcc2aed17', '2025-06-11 21:27:44', '2025-06-13 05:27:44', 1),
-(6, 11, 'f1aca7d3486af6abeab76a920ed4499536999296a22faea2ed1184bb910440b3', '2025-06-20 17:00:24', '2025-06-22 01:00:24', 1);
+(8, 11, '4cf78b9335d9be872ef9725caa9b3e94fa442271dd4e128869cd1325c1c06a89', '2025-06-20 19:11:05', '2025-06-22 03:11:05', 1);
 
 -- --------------------------------------------------------
 
@@ -676,7 +700,7 @@ ALTER TABLE `certificados`
 -- AUTO_INCREMENT de la tabla `clase`
 --
 ALTER TABLE `clase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `costos_curso`
@@ -790,7 +814,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
