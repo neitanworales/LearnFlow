@@ -137,67 +137,13 @@
 
             <h2 class="h1 pt-md-2 pt-lg-4 pt-xl-5 pb-md-3 pb-lg-4 mb-md-4">Clases</h2>
             <div class="steps steps-sm">
-                <div class="step">
+                <div class="step" *ngFor="let clase of curso?.clases; let i = index">
                     <div class="step-number">
-                        <div class="step-number-inner">1</div>
+                        <div class="step-number-inner">{{i+1}}</div>
                     </div>
                     <div class="step-body">
-                        <h4 class="mb-2">Introduction. Getting started</h4>
-                        <p class="mb-0">Nulla faucibus mauris pellentesque blandit faucibus non. Sit ut et at
-                            suspendisse gravida hendrerit tempus placerat.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">
-                        <div class="step-number-inner">2</div>
-                    </div>
-                    <div class="step-body">
-                        <h4 class="mb-2">The ultimate HTML developer: advanced HTML</h4>
-                        <p class="mb-0">Lobortis diam elit id nibh ultrices sed penatibus donec. Nibh iaculis eu sit
-                            cras ultricies. Nam eu eget etiam egestas donec scelerisque ut ac enim. Vitae ac nisl, enim
-                            nec accumsan vitae est.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">
-                        <div class="step-number-inner">3</div>
-                    </div>
-                    <div class="step-body">
-                        <h4 class="mb-2">CSS &amp; CSS3: basic</h4>
-                        <p class="mb-0">Duis euismod enim, facilisis risus tellus pharetra lectus diam neque. Nec
-                            ultrices mi faucibus est. Magna ullamcorper potenti elementum ultricies auctor.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">
-                        <div class="step-number-inner">4</div>
-                    </div>
-                    <div class="step-body">
-                        <h4 class="mb-2">JavaScript basics for beginners</h4>
-                        <p class="mb-0">Morbi porttitor risus imperdiet a, nisl mattis. Amet, faucibus eget in platea
-                            vitae, velit, erat eget velit. At lacus ut proin erat.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">
-                        <div class="step-number-inner">5</div>
-                    </div>
-                    <div class="step-body">
-                        <h4 class="mb-2">Understanding APIs</h4>
-                        <p class="mb-0">Risus morbi euismod in congue scelerisque fusce pellentesque diam consequat.
-                            Nisi mauris nibh sed est morbi amet arcu urna. Malesuada feugiat quisque consectetur
-                            elementum diam vitae. Dictumst facilisis odio eu quis maecenas risus odio fames bibendum
-                            ullamcorper.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">
-                        <div class="step-number-inner">6</div>
-                    </div>
-                    <div class="step-body">
-                        <h4 class="mb-2">Python from beginner to advanced</h4>
-                        <p class="mb-0">Quis risus quisque diam diam. Volutpat neque eget eu faucibus sed urna fermentum
-                            risus. Est, mauris morbi nibh massa.</p>
+                        <h4 class="mb-2">{{clase.titulo}}</h4>
+                        <p class="mb-0">{{clase.descripcion}}</p>
                     </div>
                 </div>
             </div>

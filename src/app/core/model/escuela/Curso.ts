@@ -1,5 +1,6 @@
 import { DefaultResponse } from "../DefaultResponse";
 import { Persona } from "../Persona";
+import { Clase } from "./Clase";
 
 export class Curso {
     id?: number;
@@ -18,6 +19,7 @@ export class Curso {
     certificado_disponible?: boolean;
     precio?: number;
     autor?: Persona
+    clases?: Clase[]
 }
 
 export class CursosResponse extends DefaultResponse {

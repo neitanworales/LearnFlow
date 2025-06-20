@@ -25,6 +25,7 @@ require_once './controllers/NotificacionController.php';
 require_once './controllers/EncuestaController.php';
 require_once './controllers/RespuestaEncuestaController.php';
 require_once './controllers/ProgresoController.php';
+require_once './controllers/ClaseController.php';
 
 // Detectar URI y método HTTP
 $scriptName = $_SERVER['SCRIPT_NAME']; // e.g. /LearnFlow/index.php
@@ -159,6 +160,7 @@ resourceRoutes('personas', 'PersonaController');
 resourceRoutes('roles', 'RolController');
 resourceRoutes('organizaciones', 'OrganizacionController');
 resourceRoutes('cursos', 'CursoController');
+resourceRoutes('clases', 'ClaseController');
 resourceRoutes('costos-curso', 'CostoCursoController');
 resourceRoutes('inscripciones-curso', 'InscripcionCursoController');
 resourceRoutes('eventos', 'EventoController');

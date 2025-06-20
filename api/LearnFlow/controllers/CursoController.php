@@ -2,26 +2,30 @@
 require_once './dao/CursoDao.php';
 require_once './models/Curso.php';
 require_once './dao/PersonaDao.php';
+require_once './dao/ClaseDao.php';
 
 class CursoController {
     private $dao;
     private $personaDao;
+    private $claseDao;
 
     public function __construct() {
         $this->dao = new CursoDao();
         $this->personaDao = new PersonaDao();
+        $this->claseDao = new ClaseDao();
     }
 
     public function index() {
         $stmt = $this->dao->getAll();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo jsonResponse($data);
+        echo jsonResponse($data,200, 'Ok');
     }
 
     public function show($id) {
         $stmt = $this->dao->getById($id);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         $data['autor'] = $this->personaDao->getById($data['instructor_id']);
+        $data['clases'] = $this->claseDao->getByCurso($id);
         $statusCode = 200;
         $statusText = 'Ok';
         if(empty($data)){
