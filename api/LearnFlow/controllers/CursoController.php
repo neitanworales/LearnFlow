@@ -1,12 +1,15 @@
 <?php
 require_once './dao/CursoDao.php';
 require_once './models/Curso.php';
+require_once './dao/PersonaDao.php';
 
 class CursoController {
     private $dao;
+    private $personaDao;
 
     public function __construct() {
         $this->dao = new CursoDao();
+        $this->personaDao = new PersonaDao();
     }
 
     public function index() {
@@ -18,6 +21,7 @@ class CursoController {
     public function show($id) {
         $stmt = $this->dao->getById($id);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $data['autor'] = $this->personaDao->getById($data['instructor_id']);
         $statusCode = 200;
         $statusText = 'Ok';
         if(empty($data)){

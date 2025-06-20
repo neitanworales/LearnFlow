@@ -2,7 +2,7 @@ import { BehaviorSubject, catchError, firstValueFrom, map, Observable, of } from
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogInDao } from '../api/dao/LogInDao';
-import { Session } from '../model/Session/Session';
+import { Session } from '../model/session/Session';
 
 @Injectable()
 export class AuthService {

@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Session } from "../model/Session/Session";
+import { Session } from "../model/session/Session";
 
 @Injectable()
 export class Utils {
