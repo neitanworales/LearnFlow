@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CursoDao } from 'src/app/core/api/dao/CursoDao';
+import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Curso } from 'src/app/core/model/escuela/Curso';
 
 @Component({
@@ -13,7 +13,7 @@ export class CursosComponent implements OnInit {
     cursos: Curso[] = new Array();
 
     constructor(
-        private cursoDao: CursoDao
+        private escuelaDao: EscuelaDao
     ) { 
 
     }
@@ -23,7 +23,7 @@ export class CursosComponent implements OnInit {
     }
 
     cargarCursos() {
-        this.cursoDao.getCursos().subscribe(
+        this.escuelaDao.getCursos().subscribe(
             result => {
                 if (result.status === 'Ok') {
                     this.cursos = result.data || [];

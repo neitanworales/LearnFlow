@@ -29,8 +29,7 @@ import { TumbaService } from './core/services/tumbaService';
 import { Utils } from './core/api/Utils';
 import { Router } from '@angular/router';
 import { LocalStorageListenerService } from './core/services/LocalStorageListenerService';
-import { Curso } from './core/model/escuela/Curso';
-import { CursoDao } from './core/api/dao/CursoDao';
+import { EscuelaDao } from './core/api/dao/EscuelaDao';
 
 @NgModule({
   declarations: [
@@ -68,7 +67,7 @@ import { CursoDao } from './core/api/dao/CursoDao';
     provideHttpClient(withInterceptorsFromDi()),
     Utils,
     UsuarioDao,
-    CursoDao,
+    EscuelaDao,
     LogInDao,
     AuthService,
     TumbaService,

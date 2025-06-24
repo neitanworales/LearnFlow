@@ -1,4 +1,5 @@
 import { DefaultResponse } from "../DefaultResponse";
+import { Archivo } from "./Archivo";
 
 export class Clase {
     id?: number;
@@ -6,6 +7,7 @@ export class Clase {
     titulo?: string;
     descripcion?: string;
     orden?: number;
+    recursos?: Archivo[];
 }
 
 export class ClasesResponse extends DefaultResponse {

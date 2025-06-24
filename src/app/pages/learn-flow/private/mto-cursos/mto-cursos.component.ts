@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CursoDao } from 'src/app/core/api/dao/CursoDao';
+import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Curso } from 'src/app/core/model/escuela/Curso';
 
 @Component({
@@ -29,7 +29,7 @@ export class MtoCursosComponent implements OnInit {
     ];
 
     constructor(
-        private cursoDao: CursoDao
+        private escuelaDao: EscuelaDao
     ) { }
 
     ngOnInit(): void {
@@ -37,7 +37,7 @@ export class MtoCursosComponent implements OnInit {
     }
 
     cargarDatos() {
-        this.cursoDao.getCursos().subscribe(
+        this.escuelaDao.getCursos().subscribe(
             result => {
                 if (result.status === 'Ok') {
                     this.data = result.data || [];

@@ -13,6 +13,7 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
 import { hasRoleGuard } from './core/guards/has-role.guard';
 import { authGuard } from './core/guards/auth.guard';
+import { ClaseComponent } from './pages/learn-flow/clase/clase.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'learn-flow/main', component: MainComponent },
   { path: 'learn-flow/cursos', component: CursosComponent},
   { path: 'learn-flow/cursos/:id', component: CursoComponent},
+  { path: 'learn-flow/clases/:id', component: ClaseComponent},
   { path: 'learn-flow/dashboard', component: DashboardComponent, canMatch: [authGuard] },
   { path: 'learn-flow/admin/usuarios', component: UsuariosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
   { path: 'learn-flow/admin/alumnos', component: AlumnosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },

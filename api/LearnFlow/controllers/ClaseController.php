@@ -1,12 +1,15 @@
 <?php
 require_once './dao/ClaseDao.php';
 require_once './helpers/response.php';
+require_once './dao/ArchivoDao.php';
 
 class ClaseController {
     private $claseDao;
+    private $archivoDao;
 
     public function __construct() {
         $this->claseDao = new ClaseDao();
+        $this->archivoDao = new ArchivoDao();
     }
 
     public function index() {
@@ -16,6 +19,7 @@ class ClaseController {
 
     public function show($id) {
         $data = $this->claseDao->getById($id);
+        $data['recursos'] = $this->archivoDao->getByClase($id);
         echo jsonResponse($data, 200, 'Ok');
     }
 

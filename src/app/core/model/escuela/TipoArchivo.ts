@@ -1,0 +1,1 @@
+export type TipoArchivo = 'pdf' | 'audio' | 'video' | 'imagen' | 'otro';
