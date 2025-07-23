@@ -9,18 +9,26 @@ import { UsuariosComponent } from './pages/learn-flow/private/usuarios/usuarios.
 import { MtoCursosComponent } from './pages/learn-flow/private/mto-cursos/mto-cursos.component';
 import { CursosComponent } from './pages/learn-flow/cursos/cursos.component';
 import { CursoComponent } from './pages/learn-flow/curso/curso.component';
+import { RegistroComponent } from './pages/registro/registro.component';
+import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
+import { hasRoleGuard } from './core/guards/has-role.guard';
+import { authGuard } from './core/guards/auth.guard';
+import { ClaseComponent } from './pages/learn-flow/clase/clase.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
   { path: 'learn-flow/main', component: MainComponent },
-  { path: 'learn-flow/dashboard', component: DashboardComponent },
-  { path: 'learn-flow/cursos', component: CursosComponent },
-  { path: 'learn-flow/cursos/:id', component: CursoComponent },
-  { path: 'learn-flow/admin/usuarios', component: UsuariosComponent },
-  { path: 'learn-flow/admin/alumnos', component: AlumnosComponent },
-  { path: 'learn-flow/admin/cursos', component: MtoCursosComponent },
+  { path: 'learn-flow/cursos', component: CursosComponent},
+  { path: 'learn-flow/cursos/:id', component: CursoComponent},
+  { path: 'learn-flow/clases/:id', component: ClaseComponent},
+  { path: 'learn-flow/dashboard', component: DashboardComponent, canMatch: [authGuard] },
+  { path: 'learn-flow/admin/usuarios', component: UsuariosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
+  { path: 'learn-flow/admin/alumnos', component: AlumnosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
+  { path: 'learn-flow/admin/cursos', component: MtoCursosComponent, canActivate: [hasRoleGuard(['super', 'admin'])] },
 ];
 
 @NgModule({

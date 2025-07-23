@@ -21,7 +21,6 @@ CREATE TABLE usuarios (
     persona_id INT NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
-    rol_id INT NOT NULL,
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (persona_id) REFERENCES personas(id),
     FOREIGN KEY (rol_id) REFERENCES roles(id)

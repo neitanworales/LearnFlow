@@ -19,6 +19,11 @@ class ArchivoDao {
         return $this->bd->execute($query, [':id' => $id]);
     }
 
+    public function getByClase($clase_id) {
+        $query = "SELECT * FROM {$this->table} WHERE clase_id = :clase_id";
+        return $this->bd->execute($query, [':clase_id' => $clase_id])->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function insert($obj) {
         $props = get_object_vars($obj);
         unset($props['id']);

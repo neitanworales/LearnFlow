@@ -1,0 +1,22 @@
+import { inject } from '@angular/core';
+import { CanMatchFn, GuardResult, MaybeAsync, Router } from '@angular/router';
+import { map } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+
+export const authGuard: CanMatchFn = (
+  route,
+  segments,
+): MaybeAsync<GuardResult> => {
+  const router = inject(Router);
+
+  return inject(AuthService).currentUser$.pipe(
+    map((session) => {
+      if (session) {
+        if(session.status === 'valid' || session.status === 'ok') {
+          return true;
+        }
+      }
+      return router.createUrlTree(['login']);
+    }),
+  );
+};

@@ -1,0 +1,1 @@
+export type UserRole = 'usuario' | 'maestro' | 'alumno' | 'libre' | 'admin' | 'super';

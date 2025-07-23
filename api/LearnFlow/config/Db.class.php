@@ -1,10 +1,12 @@
 <?php
 
-class Db {
+class Db
+{
     private static $instance = null;
     private $pdo;
 
-    private function __construct() {
+    private function __construct()
+    {
         require 'Conf.class.php';
         $conf = Conf::getInstance();
         $host = $conf->getHostDB();
@@ -21,7 +23,8 @@ class Db {
     }
 
     // Singleton
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new Db();
         }
@@ -29,9 +32,22 @@ class Db {
     }
 
     // Método execute()
-    public function execute($sql, $params = []) {
+    public function execute($sql, $params = [])
+    {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
+        return $stmt;
+    }
+
+    public function executeWithId($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        
+        if (stripos(trim($sql), 'insert') === 0) {
+            return $this->pdo->lastInsertId();
+        }
+
         return $stmt;
     }
 }

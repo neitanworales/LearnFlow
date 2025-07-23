@@ -2,6 +2,42 @@
     style="margin-top: 2em;">
     <hr>
     <div class="container">
-        <h1>Usuarios</h1>
+        <h1>Usuarios {{data.length}}</h1>
+
+        <table mat-table [dataSource]="data">
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> id </th>
+                <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="persona_id">
+                <th mat-header-cell *matHeaderCellDef> persona_id </th>
+                <td mat-cell *matCellDef="let user"> {{user.persona_id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> email </th>
+                <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="contrasena">
+                <th mat-header-cell *matHeaderCellDef> contrasena </th>
+                <td mat-cell *matCellDef="let user"> {{user.contrasena}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="rol_id">
+                <th mat-header-cell *matHeaderCellDef> rol_id </th>
+                <td mat-cell *matCellDef="let user"> {{user.rol_id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha_registro">
+                <th mat-header-cell *matHeaderCellDef> fecha_registro </th>
+                <td mat-cell *matCellDef="let user"> {{user.fecha_registro}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+        </table>
     </div>
 </section>

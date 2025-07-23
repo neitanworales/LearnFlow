@@ -19,6 +19,11 @@ class UsuarioDao {
         return $this->bd->execute($query, [':id' => $id]);
     }
 
+    public function getByEmail($email) {
+        $query = "SELECT * FROM {$this->table} WHERE email = :email LIMIT 1";
+        return $this->bd->execute($query, [':email' => $email]);
+    }
+
     public function insert($obj) {
         $props = get_object_vars($obj);
         unset($props['id']);
@@ -30,7 +35,7 @@ class UsuarioDao {
         foreach ($props as $key => $value) {
             $params[":$key"] = $value;
         }
-        return $this->bd->execute($query, $params);
+        return $this->bd->executeWithId($query, $params);
     }
 
     public function update($obj) {
