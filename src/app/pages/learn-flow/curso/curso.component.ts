@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Curso } from 'src/app/core/model/escuela/Curso';
-
+import { jarallax } from 'jarallax';
 
 @Component({
     selector: 'app-curso',
@@ -10,15 +10,22 @@ import { Curso } from 'src/app/core/model/escuela/Curso';
     styleUrls: ['./curso.component.scss'],
     standalone: false
 })
-export class CursoComponent implements OnInit {
+export class CursoComponent implements OnInit, AfterViewInit {
     cursoId: number = 0;
     curso?: Curso;
     tags: string[] = [];
 
     constructor(
         private route: ActivatedRoute,
-        private escuelaDao: EscuelaDao
+        private escuelaDao: EscuelaDao,
+        private elRef: ElementRef
     ) { }
+
+    ngAfterViewInit(): void {
+        jarallax(this.elRef.nativeElement.querySelectorAll('.jarallax'), {
+            speed: 0.5
+        });
+    }
 
     ngOnInit(): void {
         this.route.paramMap.subscribe(params => {

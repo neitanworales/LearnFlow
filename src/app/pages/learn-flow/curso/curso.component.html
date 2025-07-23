@@ -1,18 +1,19 @@
-<section style="margin-top: 5em;" class="jarallax bg-dark pt-2 pt-lg-3 pb-lg-5" data-speed="0.35" data-bs-theme="dark">
-    <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-70"></span>
+<section class="jarallax bg-dark pt-2 pt-lg-3 pb-lg-5" data-jarallax data-speed="0.5" data-bs-theme="dark">
+    
+    <div class="jarallax-img" style="background-image: url('https://picsum.photos/id/1015/1920/1080');"></div>
 
-    <div class="container position-relative zindex-5 pb-5">
+    <div class="container">
 
         <!-- Breadcrumb -->
         <nav class="py-4" aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item">
-                    <a routerLink="/learn-flow/main"><i class="bi bi-house"></i>Home</a>
+                    <a routerLink="/learn-flow/main"><i class="bi bi-house"></i> Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a routerLink="/learn-flow/main">Cursos</a>
+                    <a routerLink="/learn-flow/main"><i class="bi bi-journals"></i> Cursos</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">{{curso?.titulo}}</li>
+                <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-book-half"></i> {{curso?.titulo}}</li>
             </ol>
         </nav>
 
@@ -21,7 +22,7 @@
             <span class="badge bg-success fs-sm me-2">Nuevo</span>
             <a *ngFor="let tag of tags" 
             href="#" 
-            class="badge bg-white text-nav fs-sm text-decoration-none"
+            class="badge bg-black text-nav fs-sm text-decoration-none"
             style="margin-right: 0.5em;">{{tag}}</a>
         </div>
 
