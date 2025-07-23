@@ -1,21 +1,20 @@
 <section class="container">
-
-
+    
     <!-- Breadcrumb -->
     <nav class="pt-4 mt-lg-3" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
-                <a href="landing-online-courses.html"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+                <a href="/learn-flow/main"><i class="bi bi-house"></i> Home</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Cursos</li>
+            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-journals"></i> Cursos</li>
         </ol>
     </nav>
 
 
     <!-- Page title + Filters -->
     <div class="d-lg-flex align-items-center justify-content-between py-4 mt-lg-2">
-        <h1 class="me-3">Courses</h1>
-        <div class="d-md-flex mb-3">
+        <h1 class="me-3">Cursos</h1>
+        <!--div class="d-md-flex mb-3">
             <select class="form-select me-md-4 mb-2 mb-md-0" style="min-width: 240px;">
                 <option value="All">All categories</option>
                 <option value="Web Development">Web Development</option>
@@ -30,7 +29,7 @@
                 <input type="text" class="form-control pe-5" placeholder="Search courses">
                 <i class="bx bx-search text-nav fs-lg position-absolute top-50 end-0 translate-middle-y me-3"></i>
             </div>
-        </div>
+        </div-->
     </div>
 
 
@@ -44,30 +43,30 @@
                     <a routerLink="/learn-flow/cursos/{{curso.id}}" class="d-block position-absolute w-100 h-100 top-0 start-0"
                         aria-label="Course link"></a>
                     <span class="badge bg-success position-absolute top-0 start-0 zindex-2 mt-3 ms-3">Nuevo</span>
-                    <a href="#"
+                    <!--a href="#"
                         class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-2 me-3 mt-3"
                         data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Save to Favorites"
                         data-bs-original-title="Save to Favorites">
                         <i class="bx bx-bookmark"></i>
-                    </a>
+                    </a -->
                     <img src="assets/img/portfolio/courses/01.jpg" class="card-img-top" alt="Image">
                 </div>
                 <div class="card-body pb-3">
                     <h3 class="h5 mb-2">
                         <a routerLink="/learn-flow/cursos/{{curso.id}}">{{curso.titulo}}</a>
                     </h3>
-                    <p class="fs-sm mb-2">{{curso.instructor_id}}</p>
+                    <p class="fs-sm mb-2">{{curso.autor?.nombre+ ' '+curso.autor?.apellido}}</p>
                     <p class="fs-lg fw-semibold text-primary mb-0">{{curso.precio}}</p>
                 </div>
                 <div class="card-footer d-flex align-items-center fs-sm text-muted py-4">
                     <div class="d-flex align-items-center me-4">
                         <i class="bx bx-time fs-xl me-1"></i>
-                        {{curso.duracion_horas}}
+                        Duración: {{curso.duracion_horas}} horas.
                     </div>
-                    <div class="d-flex align-items-center">
+                    <!--div class="d-flex align-items-center">
                         <i class="bx bx-like fs-xl me-1"></i>
                         94% (4.2K) Avance
-                    </div>
+                    </div-->
                 </div>
             </article>
         </div>
@@ -75,7 +74,7 @@
 
     </div>
 
-    <!-- Pagination: Basic example -->
+    <!-- Pagination: Basic example -- >
     <nav class="pb-5" aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -109,10 +108,10 @@
                 </a>
             </li>
         </ul>
-    </nav>
+    </nav-->
 
 
-    <!-- Sign up CTA -->
+    <!-- Sign up CTA -- >
     <div class="bg-secondary rounded-3 my-2 my-md-4 my-lg-5 py-5 px-3 px-md-0">
         <div class="row align-items-center">
             <div
@@ -131,5 +130,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div -->
 </section>

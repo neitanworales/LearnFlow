@@ -1,4 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+:root,
+[data-bs-theme="ligth"] {
+    --si-font-sans-serif: "Manrope", sans-serif;
+    --si-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --si-border-width: 1px;
+    --si-border-color: #e2e5f1;
+    --si-border-width: 1px;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.icon-inline {
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}

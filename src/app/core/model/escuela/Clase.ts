@@ -8,6 +8,7 @@ export class Clase {
     descripcion?: string;
     orden?: number;
     recursos?: Archivo[];
+    curso_titulo?: string;
 }
 
 export class ClasesResponse extends DefaultResponse {

@@ -52,5 +52,12 @@ class CursoDao {
         $query = "DELETE FROM {$this->table} WHERE id = :id";
         return $this->bd->execute($query, [':id' => $id]);
     }
+    
+    public function getCursoTituloByClaseId($curso_id) {
+        $query = "SELECT titulo FROM {$this->table} WHERE id = :curso_id";
+        $stmt = $this->bd->execute($query, [':curso_id' => $curso_id]);
+        $result = $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+        return $result ? $result['titulo'] : null;
+    }
 }
 ?>
