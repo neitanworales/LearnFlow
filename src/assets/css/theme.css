@@ -4720,7 +4720,7 @@ textarea.form-control-lg {
   --si-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='%23fff'%3e%3cpath d='M225.813 48.907L128 146.72 30.187 48.907 0 79.093l128 128 128-128z'/%3e%3c/svg%3e");
 }
 
-.breadcrumb {
+/*..breadcrumb {
   --si-breadcrumb-padding-x: 0;
   --si-breadcrumb-padding-y: 0;
   --si-breadcrumb-margin-bottom: 1rem;
@@ -4740,15 +4740,15 @@ textarea.form-control-lg {
   border-radius: var(--si-breadcrumb-border-radius);
 }
 
-.breadcrumb-item + .breadcrumb-item {
+breadcrumb-item + .breadcrumb-item {
   padding-left: var(--si-breadcrumb-item-padding-x);
 }
 .breadcrumb-item + .breadcrumb-item::before {
   float: left;
   padding-right: var(--si-breadcrumb-item-padding-x);
   color: var(--si-breadcrumb-divider-color);
-  content: var(--si-breadcrumb-divider, "\ea55") /* rtl: var(--si-breadcrumb-divider, "\ed3f") */;
-}
+  content: var(--si-breadcrumb-divider, "\ea55") /* rtl: var(--si-breadcrumb-divider, "\ed3f") * /;
+}*/
 .breadcrumb-item.active {
   color: var(--si-breadcrumb-item-active-color);
 }
@@ -15501,6 +15501,7 @@ hr.dropdown-divider {
 [data-bs-theme=dark] .accordion:not([data-bs-theme=light]) .accordion-button.shadow-none {
   background-color: transparent !important;
 }
+
 
 .breadcrumb {
   --si-breadcrumb-font-weight: 600;

@@ -7,10 +7,10 @@
         <nav class="py-4" aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item">
-                    <a routerLink="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+                    <a routerLink="/learn-flow/main"><i class="bi bi-house"></i>Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a routerLink="/learn-flow/cursos">Cursos</a>
+                    <a routerLink="/learn-flow/main">Cursos</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">{{curso?.titulo}}</li>
             </ol>
@@ -68,7 +68,7 @@
 <section class="container pt-5 mt-2 mt-lg-4 mt-xl-5">
     <div class="row">
 
-        <!-- Sidebar (Course summary) -->
+        <!-- Sidebar (Course summary)-->
         <aside class="col-lg-4 col-md-5 offset-xl-1 order-md-2 mb-5">
             <div style="margin-top: -96px;"></div>
             <div class="position-sticky top-0 pt-5">
@@ -78,29 +78,29 @@
                             <h4 class="mb-4">This course includes:</h4>
                             <ul class="list-unstyled pb-3">
                                 <li class="d-flex align-items-center mb-2">
-                                    <i class="bx bx-slideshow fs-xl text-muted me-2 pe-1"></i>
+                                    <i class="bi bi-arrow-right-short"></i>
                                     220 hours on-demand video
                                 </li>
                                 <li class="d-flex align-items-center mb-2">
-                                    <i class="bx bx-file fs-xl text-muted me-2 pe-1"></i>
+                                    <i class="bi bi-arrow-right-short"></i>
                                     18 articles
                                 </li>
                                 <li class="d-flex align-items-center mb-2">
-                                    <i class="bx bx-download fs-xl text-muted me-2 pe-1"></i>
+                                    <i class="bi bi-arrow-right-short"></i>
                                     25 downloadable resources
                                 </li>
                                 <li class="d-flex align-items-center mb-2">
-                                    <i class="bx bx-infinite fs-xl text-muted me-2 pe-1"></i>
+                                    <i class="bi bi-arrow-right-short"></i>
                                     Full lifetime access
                                 </li>
                                 <li class="d-flex align-items-center mb-2">
-                                    <i class="bx bx-trophy fs-xl text-muted me-2 pe-1"></i>
+                                    <i class="bi bi-arrow-right-short"></i>
                                     Certificate of completion
                                 </li>
                             </ul>
-                            <div class="h2 d-flex align-items-center mb-4">$28.99<del
-                                    class="text-muted fs-xl fw-normal ms-2">49.99</del></div>
-                            <a href="#" class="btn btn-primary btn-lg shadow-primary">Join the course</a>
+                            <div class="h2 d-flex align-items-center mb-4">{{curso?.precio}}
+                                <!--del class="text-muted fs-xl fw-normal ms-2">49.99</del--></div>
+                            <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}" class="btn btn-primary btn-lg shadow-primary">Tomar el curso</a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
     </div>
 </section>
 
-<!-- Related courses (Carousel on narrow screens) -->
+<!-- Related courses (Carousel on narrow screens)- ->
 <section class="bg-secondary pt-5 pb-4 pb-lg-5">
     <div class="container py-2 pt-lg-4 pb-lg-0">
         <h2 class="h1 text-center pb-4">More courses like this</h2>
@@ -194,7 +194,7 @@
           }">
             <div class="swiper-wrapper" id="swiper-wrapper-f110e212d166673f5" aria-live="polite">
 
-                <!-- Item -->
+                <!- - Item -- >
                 <div class="swiper-slide h-auto pb-3 swiper-slide-active" role="group" aria-label="1 / 3"
                     style="width: 451px; margin-right: 8px;">
                     <article class="card h-100 border-0 shadow-sm mx-2">
@@ -229,7 +229,7 @@
                     </article>
                 </div>
 
-                <!-- Item -->
+                <!- - Item - ->
                 <div class="swiper-slide h-auto pb-3 swiper-slide-next" role="group" aria-label="2 / 3"
                     style="width: 451px; margin-right: 8px;">
                     <article class="card h-100 border-0 shadow-sm mx-2">
@@ -267,7 +267,7 @@
                     </article>
                 </div>
 
-                <!-- Item -->
+                <!- - Item - ->
                 <div class="swiper-slide h-auto pb-3" role="group" aria-label="3 / 3"
                     style="width: 451px; margin-right: 8px;">
                     <article class="card h-100 border-0 shadow-sm mx-2">
@@ -303,7 +303,7 @@
                 </div>
             </div>
 
-            <!-- Pagination (bullets) -->
+            <!- - Pagination (bullets) - ->
             <div
                 class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4 swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
                 <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
@@ -313,4 +313,4 @@
             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
         </div>
     </div>
-</section>
+</section-->

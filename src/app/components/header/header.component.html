@@ -1,7 +1,7 @@
 <header class="header navbar navbar-expand-lg position-absolute">
     <div class="container px-3">
         <a href="index.html" class="navbar-brand pe-3">
-            <img src="assets/img/farologuito.png" width="47" alt="Silicon">
+            <img src="assets/img/farologuito_small.png" width="47" alt="Silicon">
             <i class="bi bi-facebook"></i>
             Comunidad FARO
         </a>
@@ -19,22 +19,22 @@
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/learn-flow/main">Bones School</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isAdmin">
                         <a class="nav-link" routerLink="/learn-flow/dashboard">Dashboard</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isAdmin">
                         <a class="nav-link" routerLink="/learn-flow/admin/usuarios">Usuarios</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isAdmin">
                         <a class="nav-link" routerLink="/learn-flow/admin/alumnos">Alumnos</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isAdmin">
                         <a class="nav-link" routerLink="/learn-flow/admin/cursos">Cursos</a>
                     </li>
                 </ul>
             </div>
             <div class="offcanvas-header border-top border-light">
-                <a routerLink="/login" class="btn btn-primary w-100" rel="noopener">
+                <a routerLink="/login" class="btn btn-primary w-100" rel="noopener" *ngIf="!isLoggedIn">
                     <i class="bx bx-cart fs-4 lh-1 me-1"></i>
                     &nbsp;Login
                 </a>

@@ -6,10 +6,12 @@ require_once './dao/ArchivoDao.php';
 class ClaseController {
     private $claseDao;
     private $archivoDao;
+    private $cursoDao;
 
     public function __construct() {
         $this->claseDao = new ClaseDao();
         $this->archivoDao = new ArchivoDao();
+        $this->cursoDao = new CursoDao(); 
     }
 
     public function index() {
@@ -20,6 +22,7 @@ class ClaseController {
     public function show($id) {
         $data = $this->claseDao->getById($id);
         $data['recursos'] = $this->archivoDao->getByClase($id);
+        $data['curso_titulo'] = $this->cursoDao->getCursoTituloByClaseId($id);
         echo jsonResponse($data, 200, 'Ok');
     }
 

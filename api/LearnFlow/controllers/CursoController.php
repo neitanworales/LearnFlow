@@ -18,6 +18,9 @@ class CursoController {
     public function index() {
         $stmt = $this->dao->getAll();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($data as &$curso) {
+            $curso['autor'] = $this->personaDao->getById($curso['instructor_id']);
+        }
         echo jsonResponse($data,200, 'Ok');
     }
 

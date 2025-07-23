@@ -4746,8 +4746,8 @@ textarea.form-control-lg {
 .breadcrumb-item + .breadcrumb-item::before {
   float: left;
   padding-right: var(--si-breadcrumb-item-padding-x);
-  color: var(--si-breadcrumb-divider-color);
-  content: var(--si-breadcrumb-divider, "\ea55") /* rtl: var(--si-breadcrumb-divider, "\ed3f") */;
+  /* color: var(--si-breadcrumb-divider-color);
+  content: var(--si-breadcrumb-divider, "\ea55") rtl: var(--si-breadcrumb-divider, "\ed3f") */;
 }
 .breadcrumb-item.active {
   color: var(--si-breadcrumb-item-active-color);
@@ -15515,7 +15515,7 @@ hr.dropdown-divider {
 }
 .breadcrumb-item + .breadcrumb-item::before {
   margin-top: 0.15em;
-  font-family: "boxicons";
+  /*font-family: "boxicons";*/
   font-size: 1.15em;
   font-weight: normal;
   line-height: 1;

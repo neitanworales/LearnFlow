@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Clase } from 'src/app/core/model/escuela/Clase';
-import { TipoArchivo } from 'src/app/core/model/escuela/TipoArchivo';
+import { VideoPlayerComponent } from "../../../components/video-player/video-player.component";
 
 
 @Component({
   selector: 'app-clase',
-  imports: [CommonModule],
+  imports: [CommonModule, VideoPlayerComponent],
   templateUrl: './clase.component.html',
   styleUrl: './clase.component.scss'
 })
@@ -28,7 +28,6 @@ export class ClaseComponent {
       const claseId = Number(params.get('id'));
       if (claseId) {
         this.escuelaDao.getClase(claseId).subscribe(response => {
-          console.log(response.data);
           this.clase = response.data;
         });
       } else {
