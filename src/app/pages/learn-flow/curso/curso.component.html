@@ -101,7 +101,7 @@
                             </ul>
                             <div class="h2 d-flex align-items-center mb-4">{{curso?.precio}}
                                 <!--del class="text-muted fs-xl fw-normal ms-2">49.99</del--></div>
-                            <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}" class="btn btn-primary btn-lg shadow-primary">Tomar el curso</a>
+                            <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}" class="btn btn-primary btn-lg shadow-primary" (click)="tomarCurso(curso!);">Tomar el curso</a>
                         </div>
                     </div>
                 </div>
@@ -162,12 +162,12 @@
                 <div class="fs-xl text-light opacity-50 mb-2">Autor</div>
                 <h2 class="h1 text-light mb-4">{{curso?.autor?.nombre + ' ' +curso?.autor?.apellido}}</h2>
                 <p class="text-light opacity-70 pb-4">{{curso?.autor?.descripcion}}</p>
-                <div class="d-flex flex-column flex-sm-row">
+                <!--div class="d-flex flex-column flex-sm-row">
                     <a href="#" class="btn btn-danger me-sm-4 mb-3 mb-sm-0">
                         <i class="bx bxl-youtube fs-xl me-2"></i>
                         Otros cursos del autor
                     </a>
-                </div>
+                </div-->
             </div>
         </div>
     </div>

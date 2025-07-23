@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Curso } from 'src/app/core/model/escuela/Curso';
 import { jarallax } from 'jarallax';
+import { Inscripcion } from 'src/app/core/model/escuela/Inscripcion';
 
 @Component({
     selector: 'app-curso',
@@ -44,5 +45,22 @@ export class CursoComponent implements OnInit, AfterViewInit {
                 console.error('Invalid curso ID');
             }
         });
+    }
+
+    tomarCurso(curso: Curso): void {
+        if (curso && curso.clases && curso.clases.length > 0) {
+            const firstClassId = curso.clases[0].id;
+            // Navigate to the first class of the course
+
+            let inscripcion : Inscripcion = new Inscripcion();
+            inscripcion.curso_id = curso.id;
+            this.escuelaDao.inscribir(inscripcion).subscribe(response => {
+                console.log('Inscripción exitosa:', response);
+                window.location.href = `/learn-flow/clases/${firstClassId}`;
+            });
+
+        } else {
+            console.error('No classes available for this course');
+        }
     }
 }

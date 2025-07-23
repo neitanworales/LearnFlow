@@ -154,6 +154,58 @@ function resourceRoutes($resource, $controllerName)
     });
 }
 
+$inscripcionController = new InscripcionCursoController();
+
+// POST /api/inscripciones
+route('/api/inscripciones', function () use ($method, $inscripcionController) {
+    if ($method === 'POST') {
+        $inscripcionController->inscribir();
+    } elseif ($method === 'GET') {
+        $inscripcionController->obtenerTodas();
+    } elseif ($method === 'DELETE') {
+        $inscripcionController->cancelar();
+    } else {
+        jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+    }
+});
+
+// GET /api/inscripciones/persona/{id}
+route('/api/inscripciones/persona/{id}', function ($id) use ($method, $inscripcionController) {
+    if ($method === 'GET') {
+        $inscripcionController->obtenerPorPersona($id);
+    } else {
+        jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+    }
+});
+
+// GET /api/inscripciones/curso/{id}
+route('/api/inscripciones/curso/{id}', function ($id) use ($method, $inscripcionController) {
+    if ($method === 'GET') {
+        $inscripcionController->obtenerPorCurso($id);
+    } else {
+        jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+    }
+});
+
+// PUT /api/inscripciones/estado
+route('/api/inscripciones/estado', function () use ($method, $inscripcionController) {
+    if ($method === 'PUT') {
+        $inscripcionController->actualizarEstado();
+    } else {
+        jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+    }
+});
+
+// PUT /api/inscripciones/costo
+route('/api/inscripciones/costo', function () use ($method, $inscripcionController) {
+    if ($method === 'PUT') {
+        $inscripcionController->actualizarCosto();
+    } else {
+        jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
+    }
+});
+
+
 // Declarar las rutas para cada recurso
 resourceRoutes('usuarios', 'UsuarioController');
 resourceRoutes('personas', 'PersonaController');
