@@ -13,10 +13,10 @@ export class UsuarioDao {
     ) { }
 
     public getUsuarios(): Observable<UsuarioResponse> {
-        return this.http.get<UsuarioResponse>(environment.api + '/api/usuarios');
+        return this.http.get<UsuarioResponse>(environment.api + '/usuarios');
     }
 
     public guardarUsuario(usuario: Usuario): Observable<DefaultResponse> {
-        return this.http.post<DefaultResponse>(environment.api+'/api/usuarios', usuario);
+        return this.http.post<DefaultResponse>(environment.api+'/usuarios', usuario);
     }
 }

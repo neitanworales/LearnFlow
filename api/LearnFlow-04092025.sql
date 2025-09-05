@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-06-2025 a las 21:11:33
+-- Tiempo de generación: 05-09-2025 a las 06:21:09
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -46,10 +46,17 @@ CREATE TABLE `archivos` (
   `id` int(11) NOT NULL,
   `clase_id` int(11) NOT NULL,
   `titulo` varchar(100) DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
   `url_archivo` varchar(255) DEFAULT NULL,
-  `fecha_subida` datetime DEFAULT current_timestamp()
+  `fecha_subida` datetime DEFAULT current_timestamp(),
+  `tipo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `archivos`
+--
+
+INSERT INTO `archivos` (`id`, `clase_id`, `titulo`, `url_archivo`, `fecha_subida`, `tipo`) VALUES
+(1, 2, '', 'https://www.youtube.com/embed/t9qXn0NrpZA?si=E0Qm7I0at1PJDb4c', '2025-06-20 14:14:49', 'video');
 
 -- --------------------------------------------------------
 
@@ -84,27 +91,10 @@ CREATE TABLE `clase` (
 --
 
 INSERT INTO `clase` (`id`, `curso_id`, `titulo`, `descripcion`, `orden`) VALUES
-(2, 2, 'Impedit repudiandae facilis to', 'Fugit aliquam laborum at ab.', 1),
+(2, 2, '10 de agosto 2025', 'Con Pastor Miguel Rivera', 1),
 (3, 2, 'Quam deserunt eum.', 'Voluptate eveniet quia nisi.', 2),
 (4, 2, 'Facere numquam voluptate ab re', 'Provident modi aliquid sequi ea dolores.', 3),
-(5, 2, 'Repellat corrupti reprehenderi', 'Quibusdam modi repellendus. Dolore facilis possimus rerum sunt.', 4),
-(6, 3, 'Libero totam impedit.', 'Exercitationem natus facilis dolores dignissimos vel. Nisi repellat magnam ut sunt eius tempora.', 1),
-(7, 3, 'Occaecati quam.', 'Explicabo necessitatibus id tempore ullam. Magni aliquam eaque dolorum adipisci.', 2),
-(8, 3, 'Non reiciendis.', 'Odit provident fugiat suscipit totam sit. Accusantium recusandae magni aperiam deserunt.', 3),
-(9, 3, 'Hic commodi perspiciatis hic.', 'Pariatur distinctio aliquam libero illum nam nihil. Consequatur alias tenetur sint at ex numquam.', 4),
-(10, 3, 'Dolor animi quas.', 'Fuga similique architecto sit suscipit.', 5),
-(11, 3, 'Repudiandae asperiores recusan', 'Blanditiis beatae incidunt eaque sed repellendus quisquam. Quo mollitia quod soluta ipsa consequatur incidunt.', 6),
-(12, 4, 'Debitis ad.', 'Blanditiis eligendi corporis laudantium porro ipsam pariatur officia. Adipisci maxime aperiam dolore quae voluptatum.', 1),
-(13, 4, 'Debitis nobis itaque laboriosa', 'Dignissimos et unde illum itaque. Illum ex dolore.', 2),
-(14, 4, 'Explicabo dolorum iusto eius q', 'Doloribus sapiente voluptas odio culpa.', 3),
-(15, 5, 'Officia fugit est necessitatib', 'Suscipit maxime culpa quasi dolore.', 1),
-(16, 5, 'Quia delectus enim officia.', 'Hic omnis eligendi in error tenetur.', 2),
-(17, 5, 'Hic rerum libero.', 'Libero sit deserunt numquam voluptas accusantium voluptatum.', 3),
-(18, 5, 'Aspernatur ducimus ea perferen', 'Aliquid hic similique consectetur.', 4),
-(19, 5, 'Qui voluptas omnis nobis moles', 'Quisquam qui temporibus cumque aut libero.', 5),
-(20, 6, 'Blanditiis cum voluptatem dign', 'Voluptatum accusantium tempora laboriosam aperiam mollitia saepe. Sequi atque temporibus.', 1),
-(21, 6, 'Placeat perferendis.', 'Odio consequuntur quia similique eos voluptatem eum. Consequatur rem quam possimus dolorem.', 2),
-(22, 6, 'Doloribus libero impedit ducim', 'Blanditiis officia laboriosam tempora dolorem distinctio.', 3);
+(5, 2, 'Repellat corrupti reprehenderi', 'Quibusdam modi repellendus. Dolore facilis possimus rerum sunt.', 4);
 
 -- --------------------------------------------------------
 
@@ -142,19 +132,16 @@ CREATE TABLE `cursos` (
   `requisitos` text DEFAULT NULL,
   `certificado_disponible` tinyint(1) DEFAULT 0,
   `precio` decimal(10,2) DEFAULT 0.00,
-  `autor_id` int(11) DEFAULT NULL
+  `autor_id` int(11) DEFAULT NULL,
+  `publico` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cursos`
 --
 
-INSERT INTO `cursos` (`id`, `organizacion_id`, `titulo`, `descripcion_corta`, `tags`, `descripcion`, `fecha_inicio`, `fecha_fin`, `instructor_id`, `estado`, `imagen_url`, `duracion_horas`, `requisitos`, `certificado_disponible`, `precio`, `autor_id`) VALUES
-(2, 1, 'Portal Neutral Perseverante', 'Consequatur quas ullam modi ullam distinctio sint repudiandae corporis ipsum esse.', 'recusandae, qui, sit, ratione', 'Fuga autem blanditiis beatae recusandae sint reprehenderit. Animi excepturi rerum voluptatibus amet accusamus a quidem. Reprehenderit eos inventore libero veniam.', '2025-06-30', '2025-07-18', 1, 1, 'https://placekitten.com/790/749', 30, 'Sit natus laboriosam doloribus illo cupiditate dolore fugit nemo laboriosam.', 1, 209.59, 1),
-(3, 1, 'Base del Conocimiento 24/7 Avanzado', 'Qui non laboriosam rerum odio nam et quidem porro asperiores veniam.', 'repudiandae, amet, non, beatae', 'Quod dicta magni quas in. Corporis asperiores facere cumque fuga aspernatur quaerat. Nulla natus voluptatum quam error ducimus.', '2025-06-25', '2025-07-16', 1, 0, 'https://dummyimage.com/503x973', 50, 'Iure atque nostrum ratione facere doloremque fugit incidunt facilis accusantium earum sequi harum sequi.', 1, 1202.86, 1),
-(4, 1, 'Base de datos basado en contenido implementado', 'Libero sunt molestias porro quisquam labore molestiae porro.', 'necessitatibus, deleniti, veritatis, accusamus', 'Molestiae ducimus dolorum voluptates corporis quia dignissimos. Ullam natus impedit ex nihil exercitationem ab fugit. Illum quam dolores magni similique.', '2025-06-21', '2025-08-07', 1, 0, 'https://placeimg.com/924/677/any', 20, 'Eligendi accusantium accusantium consectetur nihil a fuga fuga eum praesentium doloremque reprehenderit quisquam nostrum ab tempore.', 0, 994.59, 1),
-(5, 1, 'Actitud Radical Descentralizado', 'Minus a voluptatibus id quia laboriosam harum voluptas.', 'earum, doloribus, incidunt, quos', 'Exercitationem ipsam similique. Eligendi eum quae laboriosam qui.', '2025-06-07', '2025-06-24', 1, 0, 'https://www.lorempixel.com/880/309', 30, 'Aperiam quo blanditiis asperiores est aspernatur harum veritatis.', 0, 289.48, 1),
-(6, 1, 'Interfaz Amplio Abanico Inverso', 'Vero ab repellat reprehenderit minima blanditiis.', 'hic, delectus, voluptatem, ea', 'Soluta deleniti tempora corrupti nobis delectus. Nulla voluptatem repellat molestias. Optio fugit consequatur earum error voluptatem. Mollitia vero eius deleniti necessitatibus officiis harum.', '2025-06-16', '2025-07-04', 1, 1, 'https://placekitten.com/957/164', 20, 'Cumque iusto deserunt quibusdam dignissimos possimus enim quae vitae atque et molestiae.', 1, 311.37, 1);
+INSERT INTO `cursos` (`id`, `organizacion_id`, `titulo`, `descripcion_corta`, `tags`, `descripcion`, `fecha_inicio`, `fecha_fin`, `instructor_id`, `estado`, `imagen_url`, `duracion_horas`, `requisitos`, `certificado_disponible`, `precio`, `autor_id`, `publico`) VALUES
+(2, 1, 'Domingo en casa', 'Domingo en Casa es una colección de las predicaciones dominicales de la Iglesia Comunidad Faro Central, pensada para llevar la enseñanza bíblica a tu hogar', 'predicaciones, domingo, casa, central', '“Domingo en Casa” es una colección especial que nace del corazón de la Iglesia Comunidad Faro Central. Cada predicación compartida los domingos ahora podrá acompañarte también entre semana, en tu casa, en tu tiempo personal o junto a tu familia.\r\nLa intención es sencilla: que la Palabra de Dios no se quede solo en el lugar de reunión, sino que siga iluminando, animando y fortaleciendo tu vida allí donde estés. Queremos que cada mensaje sea un recordatorio de que somos una comunidad que camina unida, y que la fe se vive día a día, en lo cotidiano.\r\nCon “Domingo en Casa” abrimos una puerta para acercar la enseñanza bíblica de manera cercana y práctica, para que puedas volver a escuchar, reflexionar y compartir lo que Dios está hablando a tu corazón.', '2025-06-30', '2025-07-18', 0, 1, 'https://placekitten.com/790/749', 30, 'Sit natus laboriosam doloribus illo cupiditate dolore fugit nemo laboriosam.', 0, 0.00, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -227,6 +214,13 @@ CREATE TABLE `inscripciones_curso` (
   `fecha_inscripcion` datetime DEFAULT current_timestamp(),
   `estado` enum('inscrito','aprobado','rechazado') DEFAULT 'inscrito'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inscripciones_curso`
+--
+
+INSERT INTO `inscripciones_curso` (`id`, `persona_id`, `curso_id`, `costo_id`, `fecha_inscripcion`, `estado`) VALUES
+(2, 13, 2, 0, '2025-07-23 13:03:02', 'inscrito');
 
 -- --------------------------------------------------------
 
@@ -349,8 +343,13 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `nombre`, `apellido`, `telefono`, `documento_identidad`, `fecha_nacimiento`, `genero`, `descripcion`, `foto_url`) VALUES
-(1, 'Maestro', 'Yoda', NULL, NULL, NULL, NULL, 'Profesor con sólida experiencia en la enseñanza y acompañamiento académico de estudiantes en distintos niveles educativos. Especializado en facilitar procesos de aprendizaje significativos, combina conocimientos teóricos con aplicaciones prácticas para mantener la atención y motivación del grupo. Se caracteriza por su empatía, habilidades de comunicación y compromiso con la formación integral del alumno. Ha participado en el diseño de programas educativos, talleres y actividades complementarias que fortalecen el desarrollo académico y personal de sus estudiantes.', NULL),
-(13, 'Natan', 'Morales', NULL, NULL, NULL, NULL, NULL, NULL),
+(0, 'FARO', 'Central', NULL, NULL, NULL, NULL, 'https://drive.google.com/file/d/1fsWvsXyRP9Z4SrUsWOb9V5jyNdqZG3Qt/view?usp=share_link\r\n\r\nhttps://drive.google.com/uc?export=view&id=1fsWvsXyRP9Z4SrUsWOb9V5jyNdqZG3Qt&export=view&authuser=0\r\n\r\nhttps://drive.google.com/file/d/1fsWvsXyRP9Z4SrUsWOb9V5jyNdqZG3Qt/view?usp=share_link', 'https://drive.google.com/thumbnail?id=id=1fsWvsXyRP9Z4SrUsWOb9V5jyNdqZG3Qt'),
+(1, 'Miguel', 'Rivera', NULL, NULL, NULL, 'M', 'Pastor de Comunidad FARO', NULL),
+(2, 'Fernanda', 'Bajata', NULL, NULL, NULL, 'F', NULL, NULL),
+(3, 'Aidé ', 'Gonzales', NULL, NULL, NULL, 'F', NULL, NULL),
+(4, 'Antonio', 'Garcia', NULL, NULL, NULL, 'M', NULL, NULL),
+(5, 'Abraham', 'Mendoza', NULL, NULL, NULL, 'M', NULL, NULL),
+(13, 'Natan', 'Morales', NULL, NULL, NULL, 'M', NULL, NULL),
 (14, 'Admin', 'Testing', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -422,6 +421,25 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_archivo`
+--
+
+CREATE TABLE `tipo_archivo` (
+  `tipo` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_archivo`
+--
+
+INSERT INTO `tipo_archivo` (`tipo`) VALUES
+('audio'),
+('pdf'),
+('video');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `user_role`
 --
 
@@ -459,7 +477,23 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `user_id`, `token`, `created_at`, `expires_at`, `is_active`) VALUES
-(8, 11, '4cf78b9335d9be872ef9725caa9b3e94fa442271dd4e128869cd1325c1c06a89', '2025-06-20 19:11:05', '2025-06-22 03:11:05', 1);
+(8, 11, '4cf78b9335d9be872ef9725caa9b3e94fa442271dd4e128869cd1325c1c06a89', '2025-06-20 19:11:05', '2025-06-22 03:11:05', 1),
+(9, 11, '45cab6040797503e8378bf09d3f9b4ec7ff7b5d2602c4ed8232842317ff66233', '2025-06-26 00:47:47', '2025-06-27 08:47:47', 1),
+(10, 11, 'f846266ca8e6359933efda08fcdc5c4b4699c939edb77334d2003d269114d3cd', '2025-06-26 00:49:34', '2025-06-27 08:49:34', 1),
+(11, 11, '392f873f6d0ba266274715b76657737b364aa4e37c3124ba1c34e173d8b6ad06', '2025-06-26 01:00:49', '2025-06-27 09:00:49', 1),
+(12, 11, 'cebacdc52b933dfa64e1d50fece68c816a619ba36a2b3b9c2d126e9adb23702c', '2025-06-26 01:14:25', '2025-06-27 09:14:25', 1),
+(13, 11, 'ef04fca461f23b518392675b58f9c6805d468b275b45fdefced772e08c03dd95', '2025-07-23 15:01:15', '2025-07-24 23:01:15', 1),
+(14, 11, 'afcefaf4a83c1900d5c2f3f59b4589afdc88fdb41e7d931176b841e03371a5c3', '2025-07-23 15:40:20', '2025-07-24 23:40:20', 1),
+(15, 11, '8c41e4fb73d6dcb9d83f3a7f30b43842857f36d586b67f070b064330dd26f618', '2025-07-23 18:54:47', '2025-07-25 02:54:47', 1),
+(16, 11, '53d9296daa6f0dd97e3a11040fde250b483dee4fed1c7d3ac3ad36c313571ef6', '2025-07-23 19:00:30', '2025-07-25 03:00:30', 1),
+(17, 11, 'f1b7db423023e10558ee7effe23bc55e877d1a508eb9e612f36fa6db34f36216', '2025-07-23 19:02:43', '2025-07-25 03:02:43', 1),
+(18, 11, 'cbddc6ee8c03b3784201e3a49c2a20fdb0e7bb97be6a12ac35e10286877c94d7', '2025-07-23 19:06:30', '2025-07-25 03:06:30', 1),
+(19, 11, '8eb5c2f559d52267927e6dd56ccb9cf6fd3b6c5292ada94a3a6ecb8f8416a770', '2025-07-23 19:11:47', '2025-07-25 03:11:47', 1),
+(20, 11, '054b5ad63ffa12e64d7448301eeaefcc177140cb18897e32d82c42baf162679f', '2025-07-23 19:13:14', '2025-07-25 03:13:14', 1),
+(21, 11, 'ff675e2cbd7b0d09a3da6ed7a8dfc1c6303664eb1803265c7478802c60a8ba15', '2025-07-23 19:14:46', '2025-07-25 03:14:46', 1),
+(22, 11, '52fdc587a1b64157b8a5c63b7ba93f6ef91dfc259b4d18c96ae25b216c3cb1a3', '2025-07-23 19:21:05', '2025-07-25 03:21:05', 1),
+(23, 11, 'a9feecb1c688cc0dffece421188c8758c9f9c2681479dea13221e34f2d75c298', '2025-07-23 19:26:37', '2025-07-25 03:26:37', 1),
+(24, 11, 'e415713af6163ebc126c457260c015c2a3666a3eeb86cb671f5dc5a4553c1e34', '2025-07-24 00:15:46', '2025-07-25 08:15:46', 1);
 
 -- --------------------------------------------------------
 
@@ -480,7 +514,12 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `persona_id`, `email`, `contrasena`, `fecha_registro`) VALUES
-(1, 1, 'maestro.yoda@neitanworales.com', 'Solovino1324$', '2025-06-19 00:03:31'),
+(0, 0, 'creativos.comunidadfaro@gmail.com', 'creativos1324$', '2025-08-27 10:21:23'),
+(1, 1, 'miguel.rivera@learnflow.com', 'Pastor1324$', '2025-06-19 00:03:31'),
+(2, 2, 'fernanda.bajata@learnflow.com', 'Fernanda1324$', '2025-08-27 10:18:27'),
+(3, 3, 'aide@learnflow.com', 'aide1324$', '2025-08-27 10:19:00'),
+(4, 4, 'antonio.rockstar@learnflow.com', 'rockstar1324$', '2025-08-27 10:19:39'),
+(5, 5, 'abraham@learnflow.com', 'abraham1324$', '2025-08-27 10:20:07'),
 (11, 13, 'neitan.morales@gmail.com', 'NoMeCompares1324$', '2025-05-28 23:42:38'),
 (12, 14, 'admintesting@neitan.com', 'Solovino1324$', '2025-05-28 23:47:40');
 
@@ -500,7 +539,8 @@ ALTER TABLE `agenda`
 --
 ALTER TABLE `archivos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `clase_id` (`clase_id`) USING BTREE;
+  ADD KEY `clase_id` (`clase_id`) USING BTREE,
+  ADD KEY `tipo_archivo` (`tipo`);
 
 --
 -- Indices de la tabla `certificados`
@@ -652,6 +692,12 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `tipo_archivo`
+--
+ALTER TABLE `tipo_archivo`
+  ADD PRIMARY KEY (`tipo`);
+
+--
 -- Indices de la tabla `user_role`
 --
 ALTER TABLE `user_role`
@@ -688,7 +734,7 @@ ALTER TABLE `agenda`
 -- AUTO_INCREMENT de la tabla `archivos`
 --
 ALTER TABLE `archivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `certificados`
@@ -742,7 +788,7 @@ ALTER TABLE `foros`
 -- AUTO_INCREMENT de la tabla `inscripciones_curso`
 --
 ALTER TABLE `inscripciones_curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripciones_evento`
@@ -784,7 +830,7 @@ ALTER TABLE `paquetes_evento`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `progreso`
@@ -814,13 +860,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
@@ -836,7 +882,8 @@ ALTER TABLE `agenda`
 -- Filtros para la tabla `archivos`
 --
 ALTER TABLE `archivos`
-  ADD CONSTRAINT `archivos_ibfk_1` FOREIGN KEY (`clase_id`) REFERENCES `clase` (`id`);
+  ADD CONSTRAINT `archivos_ibfk_1` FOREIGN KEY (`clase_id`) REFERENCES `clase` (`id`),
+  ADD CONSTRAINT `tipo_archivo` FOREIGN KEY (`tipo`) REFERENCES `tipo_archivo` (`tipo`);
 
 --
 -- Filtros para la tabla `certificados`
@@ -894,8 +941,7 @@ ALTER TABLE `foros`
 --
 ALTER TABLE `inscripciones_curso`
   ADD CONSTRAINT `inscripciones_curso_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`),
-  ADD CONSTRAINT `inscripciones_curso_ibfk_2` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`),
-  ADD CONSTRAINT `inscripciones_curso_ibfk_3` FOREIGN KEY (`costo_id`) REFERENCES `costos_curso` (`id`);
+  ADD CONSTRAINT `inscripciones_curso_ibfk_2` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`);
 
 --
 -- Filtros para la tabla `inscripciones_evento`
