@@ -27,7 +27,8 @@ class CursoController {
     public function show($id) {
         $stmt = $this->dao->getById($id);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        $data['autor'] = $this->personaDao->getById($data['instructor_id']);
+        $data['autor'] = $this->personaDao->getById($data['autor_id']);
+        $data['instructor'] = $this->personaDao->getById($data['instructor_id']);
         $data['clases'] = $this->claseDao->getByCurso($id);
         $statusCode = 200;
         $statusText = 'Ok';

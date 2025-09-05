@@ -8,5 +8,7 @@ class Curso
     public ?string $fecha_inicio;
     public ?string $fecha_fin;
     public ?int $instructor_id;
+    public bool $publico;
+    public ?string $imagen;
 }
 ?>
