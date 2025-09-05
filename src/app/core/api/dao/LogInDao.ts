@@ -13,11 +13,11 @@ export class LogInDao {
     ) { }
 
     public login(email: string, password: string): Observable<SessionResponse> {
-        return this.http.post<SessionResponse>(environment.api + '/api/login', { email, password }, { headers: this.utils.getHeaders() });
+        return this.http.post<SessionResponse>(environment.api + '/login', { email, password }, { headers: this.utils.getHeaders() });
     }
 
     public getSession(): Observable<SessionResponse> {
         let session = this.utils.getSessionFromStorage();
-        return this.http.post<SessionResponse>(environment.api + '/api/session', { "token": session?.token }, { headers: this.utils.getHeaders() });
+        return this.http.post<SessionResponse>(environment.api + '/session', { "token": session?.token }, { headers: this.utils.getHeaders() });
     }
 }   

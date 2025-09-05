@@ -53,7 +53,7 @@ function resourceRoutes($resource, $controllerName)
     global $method;
     $controller = new $controllerName();
 
-    route("/api/$resource", function () use ($method, $controller, $resource) {
+    route("/$resource", function () use ($method, $controller, $resource) {
 
         if ($resource === 'login' || $resource === 'logout' || $resource === 'session') {
             if ($method === 'POST') {
@@ -144,7 +144,7 @@ function resourceRoutes($resource, $controllerName)
     });
 
 
-    route("/api/$resource/{id}", function ($id) use ($method, $controller) {
+    route("/$resource/{id}", function ($id) use ($method, $controller) {
         if ($method === 'GET')
             $controller->show($id);
         if ($method === 'PUT')
@@ -156,8 +156,8 @@ function resourceRoutes($resource, $controllerName)
 
 $inscripcionController = new InscripcionCursoController();
 
-// POST /api/inscripciones
-route('/api/inscripciones', function () use ($method, $inscripcionController) {
+// POST /inscripciones
+route('/inscripciones', function () use ($method, $inscripcionController) {
     if ($method === 'POST') {
         $inscripcionController->inscribir();
     } elseif ($method === 'GET') {
@@ -169,8 +169,8 @@ route('/api/inscripciones', function () use ($method, $inscripcionController) {
     }
 });
 
-// GET /api/inscripciones/persona/{id}
-route('/api/inscripciones/persona/{id}', function ($id) use ($method, $inscripcionController) {
+// GET /inscripciones/persona/{id}
+route('/inscripciones/persona/{id}', function ($id) use ($method, $inscripcionController) {
     if ($method === 'GET') {
         $inscripcionController->obtenerPorPersona($id);
     } else {
@@ -178,8 +178,8 @@ route('/api/inscripciones/persona/{id}', function ($id) use ($method, $inscripci
     }
 });
 
-// GET /api/inscripciones/curso/{id}
-route('/api/inscripciones/curso/{id}', function ($id) use ($method, $inscripcionController) {
+// GET /inscripciones/curso/{id}
+route('/inscripciones/curso/{id}', function ($id) use ($method, $inscripcionController) {
     if ($method === 'GET') {
         $inscripcionController->obtenerPorCurso($id);
     } else {
@@ -187,8 +187,8 @@ route('/api/inscripciones/curso/{id}', function ($id) use ($method, $inscripcion
     }
 });
 
-// PUT /api/inscripciones/estado
-route('/api/inscripciones/estado', function () use ($method, $inscripcionController) {
+// PUT /inscripciones/estado
+route('/inscripciones/estado', function () use ($method, $inscripcionController) {
     if ($method === 'PUT') {
         $inscripcionController->actualizarEstado();
     } else {
@@ -196,8 +196,8 @@ route('/api/inscripciones/estado', function () use ($method, $inscripcionControl
     }
 });
 
-// PUT /api/inscripciones/costo
-route('/api/inscripciones/costo', function () use ($method, $inscripcionController) {
+// PUT /inscripciones/costo
+route('/inscripciones/costo', function () use ($method, $inscripcionController) {
     if ($method === 'PUT') {
         $inscripcionController->actualizarCosto();
     } else {
