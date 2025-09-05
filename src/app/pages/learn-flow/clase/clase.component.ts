@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Clase } from 'src/app/core/model/escuela/Clase';
 import { VideoPlayerComponent } from "../../../components/video-player/video-player.component";
+import { RecursosClaseComponent } from 'src/app/components/recursos-clase/recursos-clase.component';
 
 
 @Component({
   selector: 'app-clase',
-  imports: [CommonModule, VideoPlayerComponent],
+  imports: [CommonModule, RecursosClaseComponent],
   templateUrl: './clase.component.html',
   styleUrl: './clase.component.scss'
 })

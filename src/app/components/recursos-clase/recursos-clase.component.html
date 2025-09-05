@@ -1,0 +1,22 @@
+<div *ngFor="let recurso of clase?.recursos" class="recurso-item">
+    <h3>{{recurso.titulo}}</h3>
+
+    <ng-container [ngSwitch]="recurso.tipo">
+        <ng-container *ngSwitchCase="'video'">
+            <app-video-player [videoURL]="recurso.url_archivo!"></app-video-player>
+        </ng-container>
+        <!--ng-container *ngSwitchCase="'pdf'">
+                    <h3>Material PDF</h3>
+                    <iframe [src]="recurso.url_archivo" width="100%" height="500px"></iframe>
+                </ng-container>
+                <ng-container *ngSwitchCase="'audio'">
+                    <audio controls>
+                        <source [src]="recurso.url_archivo" type="audio/mpeg">
+                        Tu navegador no soporta audio.
+                    </audio>
+                </ng-container-->
+        <ng-container *ngSwitchDefault>
+            Recurso no soportado: {{recurso.tipo}}
+        </ng-container>
+    </ng-container>
+</div>

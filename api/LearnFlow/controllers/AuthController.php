@@ -46,6 +46,7 @@ class AuthController
                 'status' => 'ok',
                 'token' => $token,
                 'user_id' => $usuario['id'],
+                'persona_id' => $usuario['persona_id'],
                 'expires_at' => $expires, 
                 'roles' => $roles
             ], 200, 'Ok');

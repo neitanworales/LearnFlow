@@ -16,6 +16,7 @@ export class VideoPlayerComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer) {
     
   }
+  
   ngOnInit(): void {
     this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.videoURL);
   }
