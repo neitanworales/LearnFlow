@@ -1,6 +1,6 @@
 <section class="jarallax bg-dark pt-2 pt-lg-3 pb-lg-5" data-jarallax data-speed="0.5" data-bs-theme="dark">
     
-    <div class="jarallax-img" style="background-image: url('https://picsum.photos/id/1015/1920/1080');"></div>
+    <div class="jarallax-img" [style]="'background-image: url('+Utils.getDriveImageUrl(curso?.imagen_url!)+'); width: 100%'"></div>
 
     <div class="container">
 
@@ -27,8 +27,8 @@
         </div>
 
         <!-- Title -->
-        <h1>{{curso?.titulo}}</h1>
-        <p class="fs-lg text-light opacity-70">{{curso?.descripcion_corta}}</p>
+        <h1 style="color: white;">{{curso?.titulo}}</h1>
+        <p class="fs-lg text-light opacity-70">{{curso?.descripcion}}</p>
 
         <!-- Stats -->
         <div class="d-sm-flex py-3 py-md-4 py-xl-5">
@@ -54,7 +54,7 @@
 
         <!-- Author -->
         <div class="d-flex align-items-center mt-xl-5 pt-2 pt-md-4 pt-lg-5">
-            <img [src]="curso?.autor?.foto_url" class="rounded-circle" width="60" alt="Albert Flores" referrerpolicy="no-referrer">
+            <img [src]="Utils.getDriveImageUrl(curso?.autor?.foto_url!)" class="rounded-circle" width="60" alt="Foto de Autor">
             <div class="ps-3">
                 <div class="text-light opacity-80 mb-1">Created by</div>
                 <h6>{{curso?.autor?.nombre + ' ' +curso?.autor?.apellido}}</h6>
@@ -154,9 +154,9 @@
 <!-- Course author -->
 <section class="container py-lg-4 py-xl-5 mt-3 mb-5">
     <div class="row g-0 bg-dark bg-repeat-0 bg-position-center border rounded-3 overflow-hidden"
-        style="background-image: url(assets/img/portfolio/courses/author-pattern.svg);">
+        [style]="'background-image: url(assets/img/portfolio/courses/author-pattern.svg);'">
         <div class="col-md-5 bg-repeat-0 bg-position-top-center bg-size-cover"
-            style="background-image: url(assets/img/portfolio/courses/author.jpg); min-height: 350px;"></div>
+            [style]="'background-image: url('+Utils.getDriveImageUrl(curso?.instructor?.foto_url!)+'); min-height: 50px;'"></div>
         <div class="col-md-7 py-xl-5 px-4">
             <div class="py-5 mx-auto" style="max-width: 530px;">
                 <div class="fs-xl text-light opacity-50 mb-2">Autor</div>
