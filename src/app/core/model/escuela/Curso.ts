@@ -11,7 +11,7 @@ export class Curso {
     tags?: string;
     fecha_inicio?: Date;
     fecha_fin?: Date;
-    instructor_id?: number;
+    instructor?: Persona;
     estado?: boolean;
     imagen_url?: string;
     duracion_horas?: number;

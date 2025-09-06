@@ -29,4 +29,8 @@ export class Utils {
         }
     }
 
+    static getDriveImageUrl(fileId: string): string {
+        return 'https://www.neitanworales.com/api/learn-flow/proxy-image.php?id='+fileId;
+    }
+
 }

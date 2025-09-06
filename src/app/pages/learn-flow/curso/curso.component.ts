@@ -4,6 +4,7 @@ import { EscuelaDao } from 'src/app/core/api/dao/EscuelaDao';
 import { Curso } from 'src/app/core/model/escuela/Curso';
 import { jarallax } from 'jarallax';
 import { Inscripcion } from 'src/app/core/model/escuela/Inscripcion';
+import { Utils } from 'src/app/core/api/Utils';
 
 @Component({
     selector: 'app-curso',
@@ -12,6 +13,8 @@ import { Inscripcion } from 'src/app/core/model/escuela/Inscripcion';
     standalone: false
 })
 export class CursoComponent implements OnInit, AfterViewInit {
+
+    Utils = Utils;
     cursoId: number = 0;
     curso?: Curso;
     tags: string[] = [];
@@ -52,7 +55,7 @@ export class CursoComponent implements OnInit, AfterViewInit {
             const firstClassId = curso.clases[0].id;
             // Navigate to the first class of the course
 
-            let inscripcion : Inscripcion = new Inscripcion();
+            let inscripcion: Inscripcion = new Inscripcion();
             inscripcion.curso_id = curso.id;
             this.escuelaDao.inscribir(inscripcion).subscribe(response => {
                 console.log('Inscripción exitosa:', response);
