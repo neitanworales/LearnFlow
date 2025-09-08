@@ -6,4 +6,5 @@ export class Archivo {
     url_archivo?: string;
     tipo?: TipoArchivo | undefined; // 'pdf' | 'audio' | 'video' | 'imagen' | 'otro'
     fecha_subida?: Date;
+    duracion?: string; // Formato: "HH:MM:SS"
 }

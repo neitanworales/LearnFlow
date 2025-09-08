@@ -1,29 +1,31 @@
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav class="py-4" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a routerLink="/learn-flow/main"><i class="bi bi-house"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a routerLink="/learn-flow/main"><i class="bi bi-journals"></i> Cursos</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-book-half"></i> {{curso?.titulo}}
+            </li>
+        </ol>
+    </nav>
+</div>
+
 <section class="jarallax bg-dark pt-2 pt-lg-3 pb-lg-5" data-jarallax data-speed="0.5" data-bs-theme="dark">
-    
-    <div class="jarallax-img" [style]="'background-image: url('+Utils.getDriveImageUrl(curso?.imagen_url!)+'); width: 100%'"></div>
+
+    <div class="jarallax-img"
+        [style]="'background-image: url('+Utils.getDriveImageUrl(curso?.imagen_url!)+'); width: 100%'"></div>
 
     <div class="container">
-
-        <!-- Breadcrumb -->
-        <nav class="py-4" aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item">
-                    <a routerLink="/learn-flow/main"><i class="bi bi-house"></i> Home</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a routerLink="/learn-flow/main"><i class="bi bi-journals"></i> Cursos</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-book-half"></i> {{curso?.titulo}}</li>
-            </ol>
-        </nav>
 
         <!-- Badges -->
         <div class="d-flex pt-3 pb-4 py-sm-4 pt-lg-5">
             <span class="badge bg-success fs-sm me-2">Nuevo</span>
-            <a *ngFor="let tag of tags" 
-            href="#" 
-            class="badge bg-black text-nav fs-sm text-decoration-none"
-            style="margin-right: 0.5em;">{{tag}}</a>
+            <a *ngFor="let tag of tags" href="#" class="badge bg-black text-nav fs-sm text-decoration-none"
+                style="margin-right: 0.5em;">{{tag}}</a>
         </div>
 
         <!-- Title -->
@@ -46,20 +48,45 @@
                 <i class="bx bx-like fs-xl text-light opacity-70 me-1"></i>
                 <!--span class="text-light opacity-70">4.2K likes</span-->
             </div>
-            <div class="d-flex">
-                <i class="bx bx-time fs-xl text-light opacity-70 me-1"></i>
-                <span class="text-light opacity-70">{{curso?.duracion_horas}} horas</span>
+        </div>
+
+        <!-- Author 
+        <div class="d-flex justify-content-start align-items-center mt-xl-5 pt-2 pt-md-4 pt-lg-5">
+            <img [src]="Utils.getDriveImageUrl(curso?.autor?.foto_url!)" class="rounded-circle" width="60"
+                alt="Foto de Autor">
+            <div class="ps-3">
+                <div class="text-muted opacity-70 mb-1">Creado por</div>
+                <div class="text-light">{{curso?.autor?.nombre + ' ' +curso?.autor?.apellido}}</div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <span class="text-muted"><i class="bi bi-calendar-check"></i> Publicado {{curso?.fecha_publicacion}}</span>
+        </div>
+        <div class="d-flex justify-content-end">
+            <span class="text-muted"><i class="bi bi-clock-history"></i> {{curso?.duracion_horas}} horas</span>
+        </div>-->
+
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-xl-5 pt-2 pt-md-4 pt-lg-5">
+            <!-- Autor -->
+            <div class="d-flex align-items-center">
+                <img [src]="Utils.getDriveImageUrl(curso?.autor?.foto_url!)" class="rounded-circle" width="60"
+                    alt="Foto de Autor">
+                <div class="ps-3">
+                    <div class="text-muted opacity-70 mb-1">Creado por</div>
+                    <div class="text-light">{{curso?.autor?.nombre + ' ' +curso?.autor?.apellido}}</div>
+                </div>
+            </div>
+            <!-- Fecha -->
+            <div>
+                <span class="text-muted"><i class="bi bi-calendar-check"></i> Publicado
+                    {{curso?.fecha_publicacion}}</span>
+            </div>
+            <!-- Duración -->
+            <div>
+                <span class="text-muted"><i class="bi bi-clock-history"></i> {{curso?.duracion_horas}} horas</span>
             </div>
         </div>
 
-        <!-- Author -->
-        <div class="d-flex align-items-center mt-xl-5 pt-2 pt-md-4 pt-lg-5">
-            <img [src]="Utils.getDriveImageUrl(curso?.autor?.foto_url!)" class="rounded-circle" width="60" alt="Foto de Autor">
-            <div class="ps-3">
-                <div class="text-light opacity-80 mb-1">Created by</div>
-                <h6>{{curso?.autor?.nombre + ' ' +curso?.autor?.apellido}}</h6>
-            </div>
-        </div>
     </div>
     <div class="jarallax-img"
         style="background-image: url(assets/img/portfolio/courses/single.jpg); object-fit: cover; object-position: 50% 50%;">
@@ -82,11 +109,11 @@
                                     <i class="bi bi-arrow-right-short"></i>
                                     Videos disponibles 24/7
                                 </li>
-                                <!--li class="d-flex align-items-center mb-2">
-                                    <i class="bi bi-arrow-right-short"></i>
-                                    18 articles
-                                </li>
                                 <li class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-arrow-right-short"></i>
+                                    {{curso?.numero_clases}} clases ({{curso?.duracion_horas}} horas)
+                                </li>
+                                <!--li class="d-flex align-items-center mb-2">
                                     <i class="bi bi-arrow-right-short"></i>
                                     25 downloadable resources
                                 </li>
@@ -100,8 +127,11 @@
                                 </li-->
                             </ul>
                             <div class="h2 d-flex align-items-center mb-4">{{curso?.precio}}
-                                <!--del class="text-muted fs-xl fw-normal ms-2">49.99</del--></div>
-                            <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}" class="btn btn-primary btn-lg shadow-primary" (click)="tomarCurso(curso!);">Tomar el curso</a>
+                                <!--del class="text-muted fs-xl fw-normal ms-2">49.99</del-->
+                            </div>
+                            <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}"
+                                class="btn btn-primary btn-lg shadow-primary" (click)="tomarCurso(curso!);">Tomar el
+                                curso</a>
                         </div>
                     </div>
                 </div>
@@ -145,6 +175,11 @@
                     <div class="step-body">
                         <h4 class="mb-2"><a routerLink="/learn-flow/clases/{{clase.id}}">{{clase.titulo}}</a></h4>
                         <p class="mb-0">{{clase.descripcion}}</p>
+                        <div class="text-muted mt-2">Duración: {{clase.tiempo_clase}}
+                            <i *ngIf="clase.tiene_video" class="bi bi-film"></i>
+                            <i *ngIf="clase.tiene_audio" class="bi bi-cassette"></i>
+                            <i *ngIf="clase.tiene_pdf" class="bi bi-file-earmark-pdf"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,7 +191,8 @@
     <div class="row g-0 bg-dark bg-repeat-0 bg-position-center border rounded-3 overflow-hidden"
         [style]="'background-image: url(assets/img/portfolio/courses/author-pattern.svg);'">
         <div class="col-md-5 bg-repeat-0 bg-position-top-center bg-size-cover"
-            [style]="'background-image: url('+Utils.getDriveImageUrl(curso?.instructor?.foto_url!)+'); min-height: 50px;'"></div>
+            [style]="'background-image: url('+Utils.getDriveImageUrl(curso?.instructor?.foto_url!)+'); min-height: 50px;'">
+        </div>
         <div class="col-md-7 py-xl-5 px-4">
             <div class="py-5 mx-auto" style="max-width: 530px;">
                 <div class="fs-xl text-light opacity-50 mb-2">Autor</div>

@@ -9,6 +9,10 @@ export class Clase {
     orden?: number;
     recursos?: Archivo[];
     curso_titulo?: string;
+    tiempo_clase?: string; // Formato "HH:MM:SS"
+    tiene_pdf?: boolean;
+    tiene_video?: boolean;
+    tiene_audio?: boolean;
 }
 
 export class ClasesResponse extends DefaultResponse {

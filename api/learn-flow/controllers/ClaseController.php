@@ -22,7 +22,7 @@ class ClaseController {
     public function show($id) {
         $data = $this->claseDao->getById($id);
         $data['recursos'] = $this->archivoDao->getByClase($id);
-        $data['curso_titulo'] = $this->cursoDao->getCursoTituloByClaseId($id);
+        $data['curso_titulo'] = $this->cursoDao->getCursoTituloByClaseId($data['curso_id']);
         echo jsonResponse($data, 200, 'Ok');
     }
 
