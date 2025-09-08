@@ -20,6 +20,8 @@ export class Curso {
     precio?: number;
     autor?: Persona
     clases?: Clase[]
+    numero_clases?: number;
+    fecha_publicacion?: Date;
 }
 
 export class CursosResponse extends DefaultResponse {
