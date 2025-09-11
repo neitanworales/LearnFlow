@@ -22,6 +22,19 @@ class CursoController {
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($data as &$curso) {
             $curso['autor'] = $this->personaDao->getById($curso['instructor_id']);
+            $clases = $this->claseDao->getByCurso($curso['id']);
+            $curso['numero_clases'] = count($clases);
+            $curso['duracion_total'] = array_reduce($clases, function($carry, $clase) {
+                $recursos = $this->archivoDao->getByClase($clase['id']);
+                foreach ($recursos as $material) {
+                    if (isset($material['duracion'])) {
+                        list($hours, $minutes, $seconds) = explode(':', $material['duracion']);
+                        $carry += ($hours * 3600) + ($minutes * 60) + $seconds;
+                    }
+                }
+                return $carry;
+            }, 0);
+            $curso['duracion_horas'] = formatMilliseconds($curso['duracion_total'] * 1000);
         }
         echo jsonResponse($data,200, 'Ok');
     }

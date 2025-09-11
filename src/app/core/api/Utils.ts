@@ -25,12 +25,34 @@ export class Utils {
             this.router.navigate(["/login"]);
             return undefined;
         } else {
-            return JSON.parse(localStorage.getItem('session')!);
+            let session: Session = JSON.parse(localStorage.getItem('session')!)
+            if (session.expires_at && new Date(session.expires_at) < new Date()) {
+                return undefined;
+            }
+            console.log("session obtenida de storage", session);
+            return session;
+        }
+    }
+
+        public getSessionFromStorageWithoutRedirect(): Session | undefined {
+        console.log(localStorage.getItem('session'));
+        if (localStorage.getItem('session') == null) {
+            return undefined;
+        } else {
+            let session: Session = JSON.parse(localStorage.getItem('session')!)
+            if (session.expires_at && new Date(session.expires_at) < new Date()) {
+                return undefined;
+            }
+            console.log("session obtenida de storage", session);
+            return session;
         }
     }
 
     static getDriveImageUrl(fileId: string): string {
-        return 'https://www.neitanworales.com/api/learn-flow/proxy-image.php?id='+fileId;
+        if(!fileId || fileId.trim() === '') {
+            return '';
+        }
+        return 'https://www.neitanworales.com/api/learn-flow/proxy-image.php?id=' + fileId;
     }
 
 }

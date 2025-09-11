@@ -126,7 +126,7 @@
                                     Certificate of completion
                                 </li-->
                             </ul>
-                            <div class="h2 d-flex align-items-center mb-4">{{curso?.precio}}
+                            <div class="h2 d-flex align-items-center mb-4">{{curso?.precio == 0?'Sin costo':curso?.precio}}
                                 <!--del class="text-muted fs-xl fw-normal ms-2">49.99</del-->
                             </div>
                             <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}"
