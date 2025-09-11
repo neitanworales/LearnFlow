@@ -30,6 +30,7 @@ import { Utils } from './core/api/Utils';
 import { Router } from '@angular/router';
 import { LocalStorageListenerService } from './core/services/LocalStorageListenerService';
 import { EscuelaDao } from './core/api/dao/EscuelaDao';
+import { ProgresoDao } from './core/api/dao/ProgresoDao';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { EscuelaDao } from './core/api/dao/EscuelaDao';
     UsuarioDao,
     EscuelaDao,
     LogInDao,
+    ProgresoDao,
     AuthService,
     TumbaService,
     LocalStorageListenerService

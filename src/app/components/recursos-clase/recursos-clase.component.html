@@ -1,9 +1,26 @@
 <div *ngFor="let recurso of clase?.recursos" class="recurso-item">
     <h3>{{recurso.titulo}}</h3>
-
     <ng-container [ngSwitch]="recurso.tipo">
         <ng-container *ngSwitchCase="'video'">
-            <app-video-player [videoURL]="recurso.url_archivo!"></app-video-player>
+            <!--app-video-player [videoURL]="recurso.url_archivo!"></app-video-player-->
+            <ng-container *ngSwitchCase="'video'">
+                <app-youtube-player 
+                    [width]="'100%'" 
+                    [height]="615" 
+                    [videoId]="recurso.video_id!"
+                    [playerVars]="{ autoplay: 0, controls: 1, rel: 0, modestbranding: 1, start: progreso?.avance! || 0 }"
+                    [archivo]="recurso"
+                    [progreso]="progreso!"
+                    (ready)="onReady($event)" (stateChange)="onState($event)" (error)="onError($event)"
+                    (progress)="onProgress($event)">
+                </app-youtube-player>
+
+                <p>Tiempo: {{ currentTime | number:'1.0-0' }} / {{ duration | number:'1.0-0' }} seg</p>
+                <p>Avance: {{ progressPercent | number:'1.0-0' }} %</p>
+                <p>Archivo: {{'Archivo: '+progreso?.archivo_id +', Clase: '+ progreso?.clase_id + ', Curso: ' + progreso?.curso_id}}</p>
+                <p>Progreso: {{'Avance: '+progreso?.avance + ', Porcentaje: ' + progreso?.porcentaje  }}</p>
+            </ng-container>
+
         </ng-container>
         <!--ng-container *ngSwitchCase="'pdf'">
                     <h3>Material PDF</h3>
