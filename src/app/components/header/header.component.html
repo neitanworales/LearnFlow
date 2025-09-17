@@ -22,6 +22,21 @@
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/learn-flow/main">Bones School</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Congregaciones
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Central</a></li>
+                            <li><a class="dropdown-item" href="#">Coyoacán</a></li>
+                            <li><a class="dropdown-item" href="#">Acapulco</a></li>
+                            <li><a class="dropdown-item" href="#">Metepec</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/blog">Loged: {{isLoggedIn}}</a>
+                    </li>
                     <li class="nav-item" *ngIf="isAdmin">
                         <a class="nav-link" routerLink="/learn-flow/dashboard">Dashboard</a>
                     </li>
@@ -35,10 +50,16 @@
                         <a class="nav-link" routerLink="/learn-flow/admin/cursos">Cursos</a>
                     </li>
                 </ul>
-                <div class="mt-3">
-                    <a routerlink="/login" class="btn btn-outline-primary btn-sm w-100" *ngIf="!isLoggedIn" href="/login">
-                        <i class="bi bi-person-fill"></i> Cuenta
+                <div class="mt-3" *ngIf="!isLoggedIn">
+                    <a routerlink="/login" class="btn btn-outline-primary btn-sm w-100"
+                        href="/login">
+                        <i class="bi bi-person-fill"></i> Login
                     </a>
+                </div>
+                <div class="mt-3" *ngIf="isLoggedIn">
+                    <button (click)="logout()" class="btn btn-outline-danger btn-sm w-100">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
                 </div>
             </div>
         </div>

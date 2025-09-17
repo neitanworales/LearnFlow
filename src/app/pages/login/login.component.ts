@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogInDao } from 'src/app/core/api/dao/LogInDao';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 import { TumbaService } from 'src/app/core/services/tumbaService';
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginComponent {
     public loginDao: LogInDao,
     private router: Router,
     private autho: AuthService,
-    private tumba: TumbaService
+    private tumba: TumbaService,
+    private storage: SessionStorageService
   ) {
     const session = inject(AuthService).getSession();
     if (session) {
@@ -55,7 +57,7 @@ export class LoginComponent {
       result => {
         console.log("sucess : " + result.status);
         if (result.statusCode === 200) {
-          localStorage.setItem('session', JSON.stringify(result.data));
+          this.storage.setSession(result.data!);
           this.loginError = false;
           this.autho.setSession(result.data!);
           this.router.navigateByUrl('/learn-flow/dashboard');

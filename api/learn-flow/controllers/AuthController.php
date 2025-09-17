@@ -42,14 +42,12 @@ class AuthController
                 $role = $role['nombre'];
                 array_push($roles, $role);
             }
-            echo jsonResponse([
-                'status' => 'ok',
-                'token' => $token,
-                'user_id' => $usuario['id'],
-                'persona_id' => $usuario['persona_id'],
-                'expires_at' => $expires, 
-                'roles' => $roles
-            ], 200, 'Ok');
+            echo jsonResponse($this->sessionResponseObject(
+                $token, 
+                $usuario,
+                $expires, 
+                $roles
+            ), 200, 'Ok');
         } else {
             echo jsonResponse(['error' => 'Credenciales inválidas'], 401, 'Unauthorized');
         }
@@ -69,19 +67,35 @@ class AuthController
     }
 
     public function generateResponse($id, $token, $expires){
+        $usuario = $this->usuarioDao->getById($id);
         $usuario['roles'] = $this->userRoleDao->getRolesByUser($id);
         $roles = array();
         foreach ($usuario['roles'] as &$role) {
             $role = $role['nombre'];
             array_push($roles, $role);
         }
-        echo jsonResponse([
+        echo jsonResponse($this->sessionResponseObject(
+            $token, 
+            $usuario,
+            $expires, 
+            $roles
+        ), 200, 'Ok');
+    }
+
+    private function sessionResponseObject(
+        $token, 
+        $usuario, 
+        $expires, 
+        $roles
+    ){
+        return [
             'status' => 'ok',
             'token' => $token,
             'user_id' => $usuario['id'],
+            'persona_id' => $usuario['persona_id'],
             'expires_at' => $expires, 
             'roles' => $roles
-        ], 200, 'Ok');
+        ];
     }
 }
 ?>

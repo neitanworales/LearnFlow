@@ -3,10 +3,14 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogInDao } from '../api/dao/LogInDao';
 import { Session } from '../model/session/Session';
+import { SessionStorageService } from './session-storage.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private loginDao: LogInDao) { }
+  constructor(
+    private loginDao: LogInDao,
+    private storage: SessionStorageService
+  ) { }
 
   private _currentUser = new BehaviorSubject<Session | null>(this.getSession());
   currentUser$ = this._currentUser.asObservable();
@@ -20,11 +24,11 @@ export class AuthService {
       this.loginDao.getSession().subscribe(
         result => {
           console.log("SE OBTIENE SESSIÓN DESDE EL BACKEND");
-          localStorage.setItem('session', JSON.stringify(result.data));
+          this.storage.setSession(result.data!);
         }, error => {
           console.log("ERROR AL HACER REQUEST: " + error);
           this.setSession(null);
-          localStorage.clear();
+          this.storage.deleteSession();
         }
       );
       console.log('se devuelve la sesión ' + JSON.parse(localStorage.getItem('session')!))

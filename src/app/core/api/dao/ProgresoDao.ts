@@ -3,8 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Utils } from "../Utils";
 import { environment } from "src/environments/environment";
-import { Progreso, ProgresoResponse } from "../../model/escuela/Progreso";
-import { DefaultResponse } from "../../model/DefaultResponse";
+import { Progreso, ProgresoResponse, ProgresoResponseSingle } from "../../model/escuela/Progreso";
 
 @Injectable()
 export class ProgresoDao {
@@ -13,16 +12,16 @@ export class ProgresoDao {
         private utils: Utils
     ) { }
 
-    public guardarProgresoArchivo(progreso: Progreso): Observable<DefaultResponse | null> {
+    public guardarProgresoArchivo(progreso: Progreso): Observable<ProgresoResponseSingle | null> {
         let session = this.utils.getSessionFromStorageWithoutRedirect();
         if (!session)
             return of(null);
         let personaId = session.persona_id;
         progreso.persona_id = personaId;
-        return this.http.post<DefaultResponse>(environment.api + '/progreso', progreso, { headers: this.utils.getHeaders() });
+        return this.http.post<ProgresoResponseSingle>(environment.api + '/progreso', progreso, { headers: this.utils.getHeaders() });
     }
 
-    public actualizarProgresoArchivo(progresoId: number, avance: number, porcentaje: number): Observable<DefaultResponse | null> {
+    public actualizarProgresoArchivo(progresoId: number, avance: number, porcentaje: number): Observable<ProgresoResponseSingle | null> {
         const body = {
             avance: avance,
             porcentaje: porcentaje
@@ -30,7 +29,7 @@ export class ProgresoDao {
         let session = this.utils.getSessionFromStorageWithoutRedirect();
         if (!session)
             return of(null);
-        return this.http.put<DefaultResponse>(environment.api + '/progreso/' + progresoId, body, { headers: this.utils.getHeaders() });
+        return this.http.put<ProgresoResponseSingle>(environment.api + '/progreso/' + progresoId, body, { headers: this.utils.getHeaders() });
     }
 
     public obtenerProgresoArchivo(progresoId: number): any {
@@ -42,7 +41,7 @@ export class ProgresoDao {
         if (!session)
             return of(null);
         let personaId = session?.persona_id;
-        return this.http.get<ProgresoResponse>(environment.api + '/progreso/' + personaId + '/cursos/' + cursoId + '/clases/' + claseId + '/archivos/' + archivoId, { headers: this.utils.getHeaders() });
+        return this.http.get<ProgresoResponse>(environment.api + '/progreso/personas/' + personaId + '/cursos/' + cursoId + '/clases/' + claseId + '/archivos/' + archivoId, { headers: this.utils.getHeaders() });
     }
 
     public saveProgresoToLocalStorage(progreso: Progreso) {

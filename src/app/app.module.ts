@@ -28,9 +28,9 @@ import { AuthService } from './core/services/auth.service';
 import { TumbaService } from './core/services/tumbaService';
 import { Utils } from './core/api/Utils';
 import { Router } from '@angular/router';
-import { LocalStorageListenerService } from './core/services/LocalStorageListenerService';
 import { EscuelaDao } from './core/api/dao/EscuelaDao';
 import { ProgresoDao } from './core/api/dao/ProgresoDao';
+import { ListaCursosComponent } from "src/app/components/lista-cursos/lista-cursos.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +56,8 @@ import { ProgresoDao } from './core/api/dao/ProgresoDao';
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
+    ListaCursosComponent
+],
   providers: [
     {
       provide: 'router', useFactory: (rotuer: Router) => {
@@ -72,8 +73,7 @@ import { ProgresoDao } from './core/api/dao/ProgresoDao';
     LogInDao,
     ProgresoDao,
     AuthService,
-    TumbaService,
-    LocalStorageListenerService
+    TumbaService
   ],
   bootstrap: [AppComponent]
 })

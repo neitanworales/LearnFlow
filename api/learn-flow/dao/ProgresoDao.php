@@ -30,7 +30,9 @@ class ProgresoDao {
         foreach ($props as $key => $value) {
             $params[":$key"] = $value;
         }
-        return $this->bd->execute($query, $params);
+        
+        $obj->id = $this->bd->executeWithId($query, $params);
+        return $obj;
     }
 
     public function update($obj) {
@@ -51,6 +53,24 @@ class ProgresoDao {
     public function delete($id) {
         $query = "DELETE FROM {$this->table} WHERE id = :id";
         return $this->bd->execute($query, [':id' => $id]);
+    }
+
+    public function obtenerAvanceCurso($persona_id, $curso_id) {
+        $query = "SELECT * FROM {$this->table} WHERE persona_id = :persona_id AND curso_id = :curso_id";
+        $stmt = $this->bd->execute($query, [':persona_id' => $persona_id, ':curso_id' => $curso_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerAvanceCursoClase($persona_id, $curso_id, $clase_id) {
+        $query = "SELECT * FROM {$this->table} WHERE persona_id = :persona_id AND curso_id = :curso_id AND clase_id = :clase_id";
+        $stmt = $this->bd->execute($query, [':persona_id' => $persona_id, ':curso_id' => $curso_id, ':clase_id' => $clase_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerAvanceCursoClaseArchivo($persona_id, $curso_id, $clase_id, $archivo_id) {
+        $query = "SELECT * FROM {$this->table} WHERE persona_id = :persona_id AND curso_id = :curso_id AND clase_id = :clase_id AND archivo_id = :archivo_id";
+        $stmt = $this->bd->execute($query, [':persona_id' => $persona_id, ':curso_id' => $curso_id, ':clase_id' => $clase_id, ':archivo_id' => $archivo_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Utils } from 'src/app/core/api/Utils';
+import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 
 @Component({
     selector: 'app-header',
@@ -6,7 +8,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./header.component.scss'],
     standalone: false
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
     isAdmin = false;
     isLoggedIn = false;
@@ -15,21 +17,34 @@ export class HeaderComponent {
     // It also provides a logout function to clear the user session
     // and reload the page.
 
-    constructor() {
+    constructor(
+        utils: Utils,
+        private storage: SessionStorageService
+    ) {
         // Check if the user is an admin
-        const user = localStorage.getItem('user');
-        if (user) {
+        const session = utils.getSessionFromStorageWithoutRedirect();
+        if (session) {
             this.isLoggedIn = true;
-            const parsedUser = JSON.parse(user);
-            this.isAdmin = parsedUser.roles === 'admin';
+            this.isAdmin = session.roles.includes('admin');
         } else {
             this.isLoggedIn = false;
             this.isAdmin = false;
         }
     }
+    ngOnInit(): void {
+        this.storage.onChange().subscribe(session => {
+            if (session && session.session) {
+                this.isLoggedIn = true;
+                this.isAdmin = session.session.roles.includes('admin');
+            } else {
+                this.isLoggedIn = false;
+                this.isAdmin = false;
+            }
+        });
+    }
 
     logout() {
-        localStorage.removeItem('user');
+        localStorage.removeItem('session');
         window.location.reload();
     }
 

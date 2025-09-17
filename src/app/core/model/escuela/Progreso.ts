@@ -1,3 +1,5 @@
+import { DefaultResponse } from "../DefaultResponse";
+
 export class Progreso {
     id?: number;
     persona_id?: number;
@@ -11,5 +13,13 @@ export class Progreso {
 }
 
 export class ProgresoResponse {
-    data?: Progreso[];
+    data?: Progreso;
+}
+
+export class ProgresoSuccessResponse {
+    success?: Progreso;
+}
+
+export class ProgresoResponseSingle extends DefaultResponse {
+    data?: ProgresoSuccessResponse
 }

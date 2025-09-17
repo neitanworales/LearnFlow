@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Clase } from 'src/app/core/model/escuela/Clase';
 //import { VideoPlayerComponent } from '../video-player/video-player.component';
 import { YoutubePlayerComponent } from '../youtube-player/youtube-player.component';
-import { Progreso } from 'src/app/core/model/escuela/Progreso';
+import { Progreso, ProgresoResponseSingle } from 'src/app/core/model/escuela/Progreso';
 import { Archivo } from 'src/app/core/model/escuela/Archivo';
 import { ProgresoDao } from 'src/app/core/api/dao/ProgresoDao';
 import { DefaultResponse } from 'src/app/core/model/DefaultResponse';
+import { Utils } from 'src/app/core/api/Utils';
 
 @Component({
   selector: 'app-recursos-clase',
@@ -25,7 +26,8 @@ export class RecursosClaseComponent implements OnInit {
   progreso: Progreso | null = null;
 
   constructor(
-    private progresoDao: ProgresoDao
+    private progresoDao: ProgresoDao,
+    private utils: Utils
   ) { }
 
   ngOnInit(): void {
@@ -78,9 +80,11 @@ export class RecursosClaseComponent implements OnInit {
         });
       } else {
         this.progresoDao.guardarProgresoArchivo(this.createProgresoEmpty()).subscribe({
-          next: (res: DefaultResponse | null) => {
+          next: (res: ProgresoResponseSingle | null) => {
             if (res) {
               console.log('Progreso guardado: ', res);
+              this.progreso = res.data?.success!;
+              this.progresoDao.saveProgresoToLocalStorage(res.data?.success!);
             } else {
               console.error('No se recibió progreso actualizado porque la sesión es nula');
               console.log('Se guardará en local storage: ');
@@ -104,8 +108,9 @@ export class RecursosClaseComponent implements OnInit {
     console.log('Obteniendo progreso para curso: ' + this.clase.curso_id + ', clase: ' + this.clase.id + ', archivo: ' + this.archivo?.id);
     this.progresoDao.obtenerProgresoArchivoByTraza(this.clase.curso_id!, this.clase.id!, this.archivo!.id!).subscribe({
       next: (res) => {
-        if (res && res.data && res.data.length > 0) {
-          this.progreso = res.data[0];
+        if (res && res.data ) {
+          this.progreso = res.data;
+          this.progreso.avance = this.utils.timeToSeconds(this.progreso.avance as unknown as string);
           console.log('Progreso obtenido: ', this.progreso);
         } else {
           this.progreso = null;

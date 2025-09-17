@@ -26,15 +26,12 @@ export class Utils {
             return undefined;
         } else {
             let session: Session = JSON.parse(localStorage.getItem('session')!)
-            if (session.expires_at && new Date(session.expires_at) < new Date()) {
-                return undefined;
-            }
             console.log("session obtenida de storage", session);
             return session;
         }
     }
 
-        public getSessionFromStorageWithoutRedirect(): Session | undefined {
+    public getSessionFromStorageWithoutRedirect(): Session | undefined {
         console.log(localStorage.getItem('session'));
         if (localStorage.getItem('session') == null) {
             return undefined;
@@ -49,10 +46,33 @@ export class Utils {
     }
 
     static getDriveImageUrl(fileId: string): string {
-        if(!fileId || fileId.trim() === '') {
+        if (!fileId || fileId.trim() === '') {
             return '';
         }
         return 'https://www.neitanworales.com/api/learn-flow/proxy-image.php?id=' + fileId;
     }
 
+    msToTime(ms: number): string {
+        const hours = Math.floor(ms / (1000 * 60 * 60));
+        const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+
+        // Formato con ceros a la izquierda
+        const hh = String(hours).padStart(2, '0');
+        const mm = String(minutes).padStart(2, '0');
+        const ss = String(seconds).padStart(2, '0');
+
+        return `${hh}:${mm}:${ss}`;
+    }
+
+    timeToSeconds(time: string): number {
+        const parts = time.split(':').map(Number);
+        // Ej: "02:03:04" → [2, 3, 4]
+
+        const hours = parts[0] || 0;
+        const minutes = parts[1] || 0;
+        const seconds = parts[2] || 0;
+
+        return (hours * 3600) + (minutes * 60) + seconds;
+    }
 }
