@@ -3,18 +3,21 @@ require_once './dao/CursoDao.php';
 require_once './models/Curso.php';
 require_once './dao/PersonaDao.php';
 require_once './dao/ClaseDao.php';
+require_once './dao/ProgresoDao.php';
 
 class CursoController {
     private $dao;
     private $personaDao;
     private $claseDao;
     private $archivoDao;
+    private $progresoDao;
 
     public function __construct() {
         $this->dao = new CursoDao();
         $this->personaDao = new PersonaDao();
         $this->claseDao = new ClaseDao();
         $this->archivoDao = new ArchivoDao();
+        $this->progresoDao = new ProgresoDao();
     }
 
     public function index() {
@@ -71,6 +74,15 @@ class CursoController {
             }
             $clase['tiempo_clase'] = formatMilliseconds($clase['tiempo_clase'] * 1000);
             $clase['recursos'] = $recursos;
+            if(!empty($_GET['persona_id'])){
+                $progresos = $this->progresoDao->obtenerAvanceCursoClase($_GET['persona_id'], $id, $clase['id']);
+                $porcentaje = 0;
+                foreach($progresos as $prog){
+                    $porcentaje += $prog['porcentaje'] ?? 0;
+                }
+                $clase['avance'] = $porcentaje;
+                $clase['progreso'] = $progresos;
+            }
         }
         $data['clases'] = $clases;
         $data['duracion_total'] = array_reduce($clases, function($carry, $clase) {
@@ -86,6 +98,16 @@ class CursoController {
         },  0);
         $data['duracion_horas'] = formatMilliseconds($data['duracion_total'] * 1000);
         $data['numero_clases'] = count($clases);
+        $data['avance'] = 0;
+        if(!empty($_GET['persona_id'])){
+            $progresos = $this->progresoDao->obtenerAvanceCurso($_GET['persona_id'], $id);
+            $porcentaje = 0;
+            foreach($progresos as $prog){
+                $porcentaje += $prog['porcentaje'] ?? 0;
+            }
+            $data['avance'] = ($porcentaje / $data['numero_clases']);
+            $data['progreso'] = $progresos;
+        }
         $statusCode = 200;
         $statusText = 'Ok';
         if(empty($data)){

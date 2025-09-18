@@ -4,6 +4,7 @@ require_once './dao/UsuarioDao.php';
 require_once './dao/UserTokenDAO.php';
 require_once './dao/UserRoleDao.php';
 require_once './helpers/response.php';
+require_once './dao/PersonaDao.php';
 
 class AuthController
 {
@@ -11,12 +12,14 @@ class AuthController
     private $usuarioDao;
     private $tokenDao;
     private $userRoleDao;
+    private $personaDao;
 
     public function __construct()
     {
         $this->usuarioDao = new UsuarioDao();
         $this->tokenDao = new UserTokenDAO();
         $this->userRoleDao = new UserRoleDAO();
+        $this->personaDao = new PersonaDao();
     }
 
     // POST /api/login
@@ -37,6 +40,7 @@ class AuthController
             $expires = date('Y-m-d H:i:s', strtotime('+1 day'));
             $this->tokenDao->create($usuario['id'], $token, $expires);
             $usuario['roles'] = $this->userRoleDao->getRolesByUser($usuario['id']);
+            $persona = $this->personaDao->getById($usuario['persona_id']);
             $roles = array();
             foreach ($usuario['roles'] as &$role) {
                 $role = $role['nombre'];
@@ -46,7 +50,8 @@ class AuthController
                 $token, 
                 $usuario,
                 $expires, 
-                $roles
+                $roles,
+                $persona
             ), 200, 'Ok');
         } else {
             echo jsonResponse(['error' => 'Credenciales inválidas'], 401, 'Unauthorized');
@@ -69,6 +74,7 @@ class AuthController
     public function generateResponse($id, $token, $expires){
         $usuario = $this->usuarioDao->getById($id);
         $usuario['roles'] = $this->userRoleDao->getRolesByUser($id);
+        $persona = $this->personaDao->getById($usuario['persona_id']);
         $roles = array();
         foreach ($usuario['roles'] as &$role) {
             $role = $role['nombre'];
@@ -78,7 +84,8 @@ class AuthController
             $token, 
             $usuario,
             $expires, 
-            $roles
+            $roles,
+            $persona
         ), 200, 'Ok');
     }
 
@@ -86,7 +93,8 @@ class AuthController
         $token, 
         $usuario, 
         $expires, 
-        $roles
+        $roles,
+        $persona
     ){
         return [
             'status' => 'ok',
@@ -94,7 +102,9 @@ class AuthController
             'user_id' => $usuario['id'],
             'persona_id' => $usuario['persona_id'],
             'expires_at' => $expires, 
-            'roles' => $roles
+            'roles' => $roles,
+            'email' => $usuario['email'],
+            'nombre' => $persona['nombre'].' '.$persona['apellido']
         ];
     }
 }

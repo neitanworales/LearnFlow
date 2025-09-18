@@ -2,12 +2,14 @@ import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Session } from "../model/session/Session";
+import { SessionStorageService } from "../services/session-storage.service";
 
 @Injectable()
 export class Utils {
 
     constructor(
-        private router: Router
+        private router: Router,
+        private sessionStorage: SessionStorageService
     ) { }
 
     public getHeaders(): HttpHeaders {
@@ -19,28 +21,23 @@ export class Utils {
     }
 
     public getSessionFromStorage(): Session | undefined {
-        console.log(localStorage.getItem('session'));
         if (localStorage.getItem('session') == null) {
-            console.log("redireccionará");
             this.router.navigate(["/login"]);
             return undefined;
         } else {
-            let session: Session = JSON.parse(localStorage.getItem('session')!)
-            console.log("session obtenida de storage", session);
+            let session: Session = this.sessionStorage.getSession()!;
             return session;
         }
     }
 
     public getSessionFromStorageWithoutRedirect(): Session | undefined {
-        console.log(localStorage.getItem('session'));
         if (localStorage.getItem('session') == null) {
             return undefined;
         } else {
-            let session: Session = JSON.parse(localStorage.getItem('session')!)
+            let session: Session = this.sessionStorage.getSession()!;
             if (session.expires_at && new Date(session.expires_at) < new Date()) {
                 return undefined;
             }
-            console.log("session obtenida de storage", session);
             return session;
         }
     }

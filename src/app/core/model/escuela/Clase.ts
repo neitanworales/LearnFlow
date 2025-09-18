@@ -13,6 +13,7 @@ export class Clase {
     tiene_pdf?: boolean;
     tiene_video?: boolean;
     tiene_audio?: boolean;
+    avance?: number; // Porcentaje de avance
 }
 
 export class ClasesResponse extends DefaultResponse {

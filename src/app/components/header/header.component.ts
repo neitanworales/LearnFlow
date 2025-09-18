@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Utils } from 'src/app/core/api/Utils';
+import { Session } from 'src/app/core/model/session/Session';
 import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 
 @Component({
@@ -12,28 +13,17 @@ export class HeaderComponent implements OnInit {
 
     isAdmin = false;
     isLoggedIn = false;
-
-    // This component checks if the user is logged in and if they are an admin
-    // It also provides a logout function to clear the user session
-    // and reload the page.
+    session!: Session;
 
     constructor(
-        utils: Utils,
+        private utils: Utils,
         private storage: SessionStorageService
-    ) {
-        // Check if the user is an admin
-        const session = utils.getSessionFromStorageWithoutRedirect();
-        if (session) {
-            this.isLoggedIn = true;
-            this.isAdmin = session.roles.includes('admin');
-        } else {
-            this.isLoggedIn = false;
-            this.isAdmin = false;
-        }
-    }
+    ) {}
+
     ngOnInit(): void {
         this.storage.onChange().subscribe(session => {
-            if (session && session.session) {
+            if (session) {
+                this.session = session.session;
                 this.isLoggedIn = true;
                 this.isAdmin = session.session.roles.includes('admin');
             } else {
@@ -41,6 +31,11 @@ export class HeaderComponent implements OnInit {
                 this.isAdmin = false;
             }
         });
+        this.session = this.utils.getSessionFromStorageWithoutRedirect()!;
+        if(this.session) {
+            this.isLoggedIn = true;
+            this.isAdmin = this.session.roles.includes('admin');
+        }
     }
 
     logout() {

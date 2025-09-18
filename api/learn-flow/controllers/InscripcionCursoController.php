@@ -121,7 +121,20 @@ class InscripcionCursoController
                 return $carry;
             }, 0);
             $curso['duracion_horas'] = formatMilliseconds($curso['duracion_total'] * 1000);
-            $curso['avance'] = $this->progresoDao->obtenerAvanceCurso($personaId, $curso['id']);
+            $avances = $this->progresoDao->obtenerAvanceCurso($personaId, $curso['id']);
+            $porcentaje = 0;
+            foreach($avances as $avance) {
+                $avance['porcentaje'];
+                $porAvance = $avance['porcentaje'] ?? 0;
+                $porcentaje += $porAvance;
+            }
+            $curso['avance'] = $porcentaje;
+            $curso['progreso'] = $avances;
+            if ($curso['numero_clases'] > 0) {
+                $curso['avance'] = ($porcentaje / $curso['numero_clases']);
+            } else {
+                $curso['avance'];
+            }
         }
         return jsonResponse($result, 200, 'Ok');
     }
