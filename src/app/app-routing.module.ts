@@ -14,6 +14,10 @@ import { TerminosCondicionesComponent } from './pages/terminos-condiciones/termi
 import { hasRoleGuard } from './core/guards/has-role.guard';
 import { authGuard } from './core/guards/auth.guard';
 import { ClaseComponent } from './pages/learn-flow/clase/clase.component';
+import { CentralComponent } from './pages/congre/central/central.component';
+import { CoyoacanComponent } from './pages/congre/coyoacan/coyoacan.component';
+import { AcapulcoComponent } from './pages/congre/acapulco/acapulco.component';
+import { MetepecComponent } from './pages/congre/metepec/metepec.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,6 +25,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
+  { path: 'central', component: CentralComponent },
+  { path: 'coyoacan', component: CoyoacanComponent },
+  { path: 'acapulco', component: AcapulcoComponent },
+  { path: 'metepec', component: MetepecComponent },
   { path: 'learn-flow/main', component: MainComponent },
   { path: 'learn-flow/cursos', component: CursosComponent},
   { path: 'learn-flow/cursos/:id', component: CursoComponent},

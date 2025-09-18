@@ -27,13 +27,21 @@ require_once './controllers/RespuestaEncuestaController.php';
 require_once './controllers/ProgresoController.php';
 require_once './controllers/ClaseController.php';
 
-// Detectar URI y método HTTP
-$scriptName = $_SERVER['SCRIPT_NAME']; // e.g. /LearnFlow/index.php
-$scriptDir = str_replace('/index.php', '', $scriptName);
-$uri = str_replace($scriptDir, '', $_SERVER['REQUEST_URI']);
-$uri = parse_url($uri, PHP_URL_PATH);
-$uri = '/' . ltrim($uri, '/');
+// Detectar método
 $method = $_SERVER['REQUEST_METHOD'];
+
+// Base path real según dónde está index.php
+$basePath = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+
+// Path solicitado
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+
+// Quita el basePath del request para obtener la URI de ruteo
+$uri = substr($requestPath, strlen($basePath));
+$uri = '/' . ltrim($uri, '/');
+
+// Normaliza slashes
+$uri = preg_replace('#/+#', '/', $uri);
 
 // Función para definir rutas
 function route($pattern, $callback)
@@ -58,7 +66,7 @@ function resourceRoutes($resource, $controllerName)
         if ($resource === 'login' || $resource === 'logout' || $resource === 'session') {
             if ($method === 'POST') {
                 $data = json_decode(file_get_contents("php://input"), true);
-
+                
                 if ($resource === 'login') {
                     $controller = new AuthController();
                     if (!isset($data['email']) || !isset($data['password'])) {
@@ -95,8 +103,7 @@ function resourceRoutes($resource, $controllerName)
                     }
 
                     $controller->logout($data['token']);
-                } else if ($resource === 'session') {
-
+                }   else if ($resource === 'session') {
                     $controller = new SessionController();
                     if (!isset($data['token'])) {
                         http_response_code(400);
@@ -203,17 +210,6 @@ route('/inscripciones/costo', function () use ($method, $inscripcionController) 
         $inscripcionController->actualizarCosto();
     } else {
         jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
-    }
-});
-
-$progresoController = new ProgresoController();
-route("/progreso/personas/{persona_id}/cursos/{curso_id}/clases/{clase_id}/archivos/{archivo_id}", function ($persona_id, $curso_id, $clase_id, $archivo_id) use ($method, $progresoController) {
-    if ($method === 'GET') {
-        $progresoController->obtenerAvanceCursoClaseArchivo($persona_id, $curso_id, $clase_id, $archivo_id);
-    } else {
-        http_response_code(405);
-        echo jsonResponse(['error' => 'Método no permitido'], 405, 'Method Not Allowed');
-        exit;
     }
 });
 

@@ -1,6 +1,7 @@
 <?php
 require_once './dao/ProgresoDao.php';
 require_once './models/Progreso.php';
+require_once './helpers/utils.php';
 
 class ProgresoController {
     private $dao;
@@ -35,6 +36,7 @@ class ProgresoController {
                 $obj->$key = $value;
             }
         }
+        $obj->avance = secondsToHms($obj->avance);
         $result = $this->dao->insert($obj);
         echo jsonResponse(['success' => $result], 201, 'Created');
     }
@@ -48,6 +50,7 @@ class ProgresoController {
                 $obj->$key = $value;
             }
         }
+        $obj->avance = secondsToHms($obj->avance);
         $result = $this->dao->update($obj);
         echo jsonResponse(['success' => $result]);
     }
@@ -55,6 +58,16 @@ class ProgresoController {
     public function destroy($id) {
         $result = $this->dao->delete($id);
         echo jsonResponse(['success' => $result]);
+    }
+
+    public function obtenerAvanceCursoClaseArchivo($persona_id, $curso_id, $clase_id, $archivo_id) {
+        $avance = $this->dao->obtenerAvanceCursoClaseArchivo($persona_id, $curso_id, $clase_id, $archivo_id);
+        if ($avance) {
+            // Aquí puedes agregar lógica adicional para filtrar por clase y archivo si es necesario
+            return jsonResponse($avance, 200, 'Ok');
+        } else {
+            return jsonResponse(['message' => 'Progreso no encontrado'], 404, 'Not Found');
+        }
     }
 }
 ?>

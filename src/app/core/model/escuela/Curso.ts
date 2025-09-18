@@ -22,6 +22,7 @@ export class Curso {
     clases?: Clase[]
     numero_clases?: number;
     fecha_publicacion?: Date;
+    avance?: number;
 }
 
 export class CursosResponse extends DefaultResponse {

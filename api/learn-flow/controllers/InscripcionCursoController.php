@@ -1,14 +1,25 @@
 <?php
 require_once './dao/InscripcionCursoDao.php';
 require_once './models/InscripcionCurso.php';
+require_once './dao/PersonaDao.php';
+require_once './dao/ClaseDao.php';
+require_once './dao/ProgresoDao.php';
 
 class InscripcionCursoController
 {
     private $dao;
+    private $personaDao;
+    private $claseDao;
+    private $archivoDao;
+    private $progresoDao;
 
     public function __construct()
     {
         $this->dao = new InscripcionCursoDao();
+        $this->personaDao = new PersonaDao();
+        $this->claseDao = new ClaseDao();
+        $this->archivoDao = new ArchivoDao();
+        $this->progresoDao = new ProgresoDao();
     }
 
     public function index()
@@ -95,6 +106,36 @@ class InscripcionCursoController
     public function obtenerPorPersona($personaId)
     {
         $result = $this->dao->obtenerCursosDePersona($personaId);
+        foreach ($result as &$curso) {
+            $curso['autor'] = $this->personaDao->getById($curso['instructor_id']);
+            $clases = $this->claseDao->getByCurso($curso['id']);
+            $curso['numero_clases'] = count($clases);
+            $curso['duracion_total'] = array_reduce($clases, function($carry, $clase) {
+                $recursos = $this->archivoDao->getByClase($clase['id']);
+                foreach ($recursos as $material) {
+                    if (isset($material['duracion'])) {
+                        list($hours, $minutes, $seconds) = explode(':', $material['duracion']);
+                        $carry += ($hours * 3600) + ($minutes * 60) + $seconds;
+                    }
+                }
+                return $carry;
+            }, 0);
+            $curso['duracion_horas'] = formatMilliseconds($curso['duracion_total'] * 1000);
+            $avances = $this->progresoDao->obtenerAvanceCurso($personaId, $curso['id']);
+            $porcentaje = 0;
+            foreach($avances as $avance) {
+                $avance['porcentaje'];
+                $porAvance = $avance['porcentaje'] ?? 0;
+                $porcentaje += $porAvance;
+            }
+            $curso['avance'] = $porcentaje;
+            $curso['progreso'] = $avances;
+            if ($curso['numero_clases'] > 0) {
+                $curso['avance'] = ($porcentaje / $curso['numero_clases']);
+            } else {
+                $curso['avance'];
+            }
+        }
         return jsonResponse($result, 200, 'Ok');
     }
 

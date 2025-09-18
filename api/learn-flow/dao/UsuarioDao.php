@@ -16,7 +16,8 @@ class UsuarioDao {
 
     public function getById($id) {
         $query = "SELECT * FROM {$this->table} WHERE id = :id";
-        return $this->bd->execute($query, [':id' => $id]);
+        $stmt = $this->bd->execute($query, [':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getByEmail($email) {

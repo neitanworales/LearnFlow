@@ -7,4 +7,6 @@ export class Session {
     persona_id?: number;
     expires_at?: Date;
     roles: UserRole[] = [];
+    email?: string;
+    nombre?: string;
 }

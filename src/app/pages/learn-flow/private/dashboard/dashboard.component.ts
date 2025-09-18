@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
     loadCursosAsignados(){
         this.escuelaDao.getCursosByPersona().subscribe( response => {
             if(response.statusCode === 200) {
-                console.log('Cursos asignados:', response.data);
                 this.cursosAsignados = response.data!;
             } else {
                 console.error('Error al cargar los cursos asignados:', response.status);

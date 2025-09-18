@@ -22,21 +22,23 @@ export class EscuelaDao {
     }
 
     public getCurso(id: number): Observable<CursoResponse> {
-        return this.http.get<CursoResponse>(environment.api + '/cursos/' + id, { headers: this.utils.getHeaders() });
+        let session: Session = this.utils.getSessionFromStorageWithoutRedirect()!;
+        let param = session ? ('?persona_id=' + session.persona_id) : '';
+        return this.http.get<CursoResponse>(environment.api + '/cursos/' + id + param, { headers: this.utils.getHeaders() });
     }
 
     public getClase(id: number): Observable<ClaseResponse> {
-        return this.http.get<ClaseResponse>(environment.api + '/clases/'+id, { headers: this.utils.getHeaders() });
+        return this.http.get<ClaseResponse>(environment.api + '/clases/' + id, { headers: this.utils.getHeaders() });
     }
 
     public inscribir(inscripcion: Inscripcion): Observable<DefaultResponse> {
-        let session : Session = this.utils.getSessionFromStorage()!;
+        let session: Session = this.utils.getSessionFromStorage()!;
         inscripcion.persona_id = session?.persona_id;
         return this.http.post<DefaultResponse>(environment.api + '/inscripciones', inscripcion, { headers: this.utils.getHeaders() });
     }
 
     public getCursosByPersona(): Observable<CursosResponse> {
-        let session : Session = this.utils.getSessionFromStorage()!;
-        return this.http.get<CursosResponse>(environment.api + '/inscripciones/persona/'+session.persona_id, { headers: this.utils.getHeaders() });
+        let session: Session = this.utils.getSessionFromStorage()!;
+        return this.http.get<CursosResponse>(environment.api + '/inscripciones/persona/' + session.persona_id, { headers: this.utils.getHeaders() });
     }
 }

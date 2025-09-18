@@ -4,6 +4,7 @@ require_once './dao/UsuarioDao.php';
 require_once './dao/UserTokenDAO.php';
 require_once './dao/UserRoleDao.php';
 require_once './helpers/response.php';
+require_once './dao/PersonaDao.php';
 
 class AuthController
 {
@@ -11,12 +12,14 @@ class AuthController
     private $usuarioDao;
     private $tokenDao;
     private $userRoleDao;
+    private $personaDao;
 
     public function __construct()
     {
         $this->usuarioDao = new UsuarioDao();
         $this->tokenDao = new UserTokenDAO();
         $this->userRoleDao = new UserRoleDAO();
+        $this->personaDao = new PersonaDao();
     }
 
     // POST /api/login
@@ -37,19 +40,19 @@ class AuthController
             $expires = date('Y-m-d H:i:s', strtotime('+1 day'));
             $this->tokenDao->create($usuario['id'], $token, $expires);
             $usuario['roles'] = $this->userRoleDao->getRolesByUser($usuario['id']);
+            $persona = $this->personaDao->getById($usuario['persona_id']);
             $roles = array();
             foreach ($usuario['roles'] as &$role) {
                 $role = $role['nombre'];
                 array_push($roles, $role);
             }
-            echo jsonResponse([
-                'status' => 'ok',
-                'token' => $token,
-                'user_id' => $usuario['id'],
-                'persona_id' => $usuario['persona_id'],
-                'expires_at' => $expires, 
-                'roles' => $roles
-            ], 200, 'Ok');
+            echo jsonResponse($this->sessionResponseObject(
+                $token, 
+                $usuario,
+                $expires, 
+                $roles,
+                $persona
+            ), 200, 'Ok');
         } else {
             echo jsonResponse(['error' => 'Credenciales inválidas'], 401, 'Unauthorized');
         }
@@ -69,19 +72,40 @@ class AuthController
     }
 
     public function generateResponse($id, $token, $expires){
+        $usuario = $this->usuarioDao->getById($id);
         $usuario['roles'] = $this->userRoleDao->getRolesByUser($id);
+        $persona = $this->personaDao->getById($usuario['persona_id']);
         $roles = array();
         foreach ($usuario['roles'] as &$role) {
             $role = $role['nombre'];
             array_push($roles, $role);
         }
-        echo jsonResponse([
+        echo jsonResponse($this->sessionResponseObject(
+            $token, 
+            $usuario,
+            $expires, 
+            $roles,
+            $persona
+        ), 200, 'Ok');
+    }
+
+    private function sessionResponseObject(
+        $token, 
+        $usuario, 
+        $expires, 
+        $roles,
+        $persona
+    ){
+        return [
             'status' => 'ok',
             'token' => $token,
             'user_id' => $usuario['id'],
+            'persona_id' => $usuario['persona_id'],
             'expires_at' => $expires, 
-            'roles' => $roles
-        ], 200, 'Ok');
+            'roles' => $roles,
+            'email' => $usuario['email'],
+            'nombre' => $persona['nombre'].' '.$persona['apellido']
+        ];
     }
 }
 ?>

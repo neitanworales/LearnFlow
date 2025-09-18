@@ -87,6 +87,17 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar text-bg-success" [style]="'width: '+curso!.avance+'%'">
+                        {{curso!.avance}}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="jarallax-img"
         style="background-image: url(assets/img/portfolio/courses/single.jpg); object-fit: cover; object-position: 50% 50%;">
@@ -126,7 +137,8 @@
                                     Certificate of completion
                                 </li-->
                             </ul>
-                            <div class="h2 d-flex align-items-center mb-4">{{curso?.precio == 0?'Sin costo':curso?.precio}}
+                            <div class="h2 d-flex align-items-center mb-4">{{curso?.precio == 0?'Sin
+                                costo':curso?.precio}}
                                 <!--del class="text-muted fs-xl fw-normal ms-2">49.99</del-->
                             </div>
                             <a routerLink="/learn-flow/clases/{{curso?.clases![0].id}}"
@@ -179,6 +191,12 @@
                             <i *ngIf="clase.tiene_video" class="bi bi-film"></i>
                             <i *ngIf="clase.tiene_audio" class="bi bi-cassette"></i>
                             <i *ngIf="clase.tiene_pdf" class="bi bi-file-earmark-pdf"></i>
+                        </div>
+                        <div *ngIf="clase.avance" class="progress mt-2" role="progressbar" aria-label="Success example"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar text-bg-success" [style]="'width: '+clase.avance+'%'">
+                                {{clase.avance}}%
+                            </div>
                         </div>
                     </div>
                 </div>
