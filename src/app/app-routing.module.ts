@@ -18,10 +18,14 @@ import { CentralComponent } from './pages/congre/central/central.component';
 import { CoyoacanComponent } from './pages/congre/coyoacan/coyoacan.component';
 import { AcapulcoComponent } from './pages/congre/acapulco/acapulco.component';
 import { MetepecComponent } from './pages/congre/metepec/metepec.component';
+import { VisionMisionObjetivosComponent } from './pages/faro/vision-mision-objetivos/vision-mision-objetivos.component';
+import { DeclaracionFeComponent } from './pages/faro/declaracion-fe/declaracion-fe.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'vision', component: VisionMisionObjetivosComponent },
+  { path: 'declaracion-fe', component: DeclaracionFeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
