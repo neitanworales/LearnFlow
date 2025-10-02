@@ -20,6 +20,7 @@ import { AcapulcoComponent } from './pages/congre/acapulco/acapulco.component';
 import { MetepecComponent } from './pages/congre/metepec/metepec.component';
 import { VisionMisionObjetivosComponent } from './pages/faro/vision-mision-objetivos/vision-mision-objetivos.component';
 import { DeclaracionFeComponent } from './pages/faro/declaracion-fe/declaracion-fe.component';
+import { StoreComponent } from './pages/store/store.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'coyoacan', component: CoyoacanComponent },
   { path: 'acapulco', component: AcapulcoComponent },
   { path: 'metepec', component: MetepecComponent },
+  { path: 'store', component: StoreComponent },
   { path: 'learn-flow/main', component: MainComponent },
   { path: 'learn-flow/cursos', component: CursosComponent},
   { path: 'learn-flow/cursos/:id', component: CursoComponent},
