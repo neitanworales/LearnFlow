@@ -64,7 +64,7 @@ class ProgresoController {
         $avance = $this->dao->obtenerAvanceCursoClaseArchivo($persona_id, $curso_id, $clase_id, $archivo_id);
         if ($avance) {
             // Aquí puedes agregar lógica adicional para filtrar por clase y archivo si es necesario
-            return jsonResponse($avance, 200, 'Ok');
+            return jsonResponse($avance[0], 200, 'Ok');
         } else {
             return jsonResponse(['message' => 'Progreso no encontrado'], 404, 'Not Found');
         }
