@@ -26,14 +26,14 @@ class ClaseDao
     // Obtener todas las clases
     public function getAll()
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY curso_id, orden ASC";
+        $sql = "SELECT * FROM {$this->table} ORDER BY orden DESC";
         return $this->db->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Obtener clases por curso
     public function getByCurso($curso_id)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE curso_id = :curso_id ORDER BY orden ASC";
+        $sql = "SELECT * FROM {$this->table} WHERE curso_id = :curso_id ORDER BY orden DESC";
         return $this->db->execute($sql, [':curso_id' => $curso_id])->fetchAll(PDO::FETCH_ASSOC);
     }
 
